@@ -1,16 +1,14 @@
 package tetris.logic
 
+import engine.graphics.Rectangle
 import engine.random.{RandomGenerator, ScalaRandomGen}
 import tetris.logic.TetrisLogic._
 
-/** To implement Tetris, complete the ``TODOs`` below.
- *
- * If you need additional files,
- * please also put them in the ``tetris`` package.
- */
-class TetrisLogic(val randomGen: RandomGenerator,
-                  val gridDims : Dimensions,
-                  val initialBoard: Seq[Seq[CellType]]) {
+//case class GameState ()
+
+case class TetrisBlock(shape: CellType, blockPositions: List[Point], rotation: Int)
+
+class TetrisLogic(val randomGen: RandomGenerator, val gridDims : Dimensions, val initialBoard: Seq[Seq[CellType]]) {
 
   def this(random: RandomGenerator, gridDims : Dimensions) =
     this(random, gridDims, makeEmptyBoard(gridDims))
@@ -18,57 +16,50 @@ class TetrisLogic(val randomGen: RandomGenerator,
   def this() =
     this(new ScalaRandomGen(), DefaultDims, makeEmptyBoard(DefaultDims))
 
-  // TODO implement me
+  private val blockTypes: Array[CellType] = Array(ICell, JCell, LCell, OCell, SCell, TCell, ZCell)
+  private var currentBlock: TetrisBlock = _
+
+  def spawnBlock(): Unit = {
+    val numberPossibleRotations = 4
+    val randomShapeIndex = randomGen.randomInt(blockTypes.length)
+    val randomRotationIndex = randomGen.randomInt(numberPossibleRotations)
+    val randomShape = blockTypes(randomShapeIndex)
+    currentBlock = TetrisBlock(randomShape, List(Point(3, 0), Point(4, 0), Point(5, 0), Point(6, 0)), rotation = randomRotationIndex)
+  }
+
   def rotateLeft(): Unit = ()
 
-  // TODO implement me
   def rotateRight(): Unit = ()
 
-  // TODO implement me
   def moveLeft(): Unit = ()
 
-  // TODO implement me
   def moveRight(): Unit = ()
 
-  // TODO implement me
   def moveDown(): Unit = ()
 
-  // TODO implement me
   def doHardDrop(): Unit = ()
 
-  // TODO implement me
   def isGameOver: Boolean = false
 
-  // TODO implement me
-  def getCellType(p : Point): CellType = Empty
+  def getCellType(p : Point): CellType = {
+    spawnBlock()
+    if (currentBlock.blockPositions.contains(p)) {
+      ICell
+    } else {
+      Empty
+    }
+  }
 }
 
 object TetrisLogic {
 
-  val FramesPerSecond: Int = 5 // change this to speed up or slow down the game
-
-  val DrawSizeFactor = 1.0 // increase this to make the game bigger (for high-res screens)
-  // or decrease to make game smaller
-
-
+  val FramesPerSecond: Int = 10
+  val DrawSizeFactor = 1.0
 
   def makeEmptyBoard(gridDims : Dimensions): Seq[Seq[CellType]] = {
     val emptyLine = Seq.fill(gridDims.width)(Empty)
     Seq.fill(gridDims.height)(emptyLine)
   }
-
-
-  // These are the dimensions used when playing the game.
-  // When testing the game, other dimensions are passed to
-  // the constructor of GameLogic.
-  //
-  // DO NOT USE the variable DefaultGridDims in your code!
-  //
-  // Doing so will cause tests which have different dimensions to FAIL!
-  //
-  // In your code only use gridDims.width and gridDims.height
-  // do NOT use DefaultDims.width and DefaultDims.height
-
 
   val DefaultWidth: Int = 10
   val NrTopInvisibleLines: Int = 4
