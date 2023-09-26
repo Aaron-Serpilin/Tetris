@@ -17,8 +17,6 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   private val gameIsOver = false
   private val blockTypes: List[CellType] = List(ICell, JCell, LCell, OCell, SCell, TCell, ZCell)
   private var currentBlock: TetrisBlock = _
-  private val randomShapeIndex = randomGen.randomInt(blockTypes.length)
-  private val randomShape = blockTypes(randomShapeIndex)
   private var tetrisBlocks: List[TetrisBlock] = List()
 
   def createBlock(): Unit = {
@@ -31,6 +29,9 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     } else {
       horizontalMiddlePoint = (gridDims.width / 2) + 1
     }
+
+    val randomShapeIndex = randomGen.randomInt(blockTypes.length)
+    val randomShape = blockTypes(randomShapeIndex)
 
     randomShape match {
       case ICell => currentBlock = TetrisBlock(ICell, List(Point(horizontalMiddlePoint - 2, 1), Point(horizontalMiddlePoint - 1, 1), Point(horizontalMiddlePoint, 1), Point(horizontalMiddlePoint + 1, 1)), randomRotationIndex)
@@ -62,10 +63,14 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     }
   }
 
+  private def canMoveDown(): Boolean = {
+    val tetrisBoardLimit = currentBlock.shape.map(_.y).max
+    tetrisBoardLimit + 1 < gridDims.height
+  }
+
   def moveDown(): Unit = {
 
-    val tetrisBoardLimit = currentBlock.shape.map(_.y).max
-    if (tetrisBoardLimit + 1 < gridDims.height) {
+    if (canMoveDown()) {
       currentBlock = currentBlock.copy(shape = currentBlock.shape.map(point => point.copy(y = point.y + 1)))
     } else {
       //Here the current block should remain at its final position, and then the current block should be reassigned to a new block which should be spawned
@@ -73,15 +78,18 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
       createBlock()
     }
 
-//    for (blocks <- tetrisBlocks) {
-//      println(s"The blocks are ${blocks}")
-//    }
-
   }
 
-  def doHardDrop(): Unit = ()
+  def doHardDrop(): Unit = {
+    while (canMoveDown()) {
+      moveDown()
+    }
+  }
+
 
   def isGameOver: Boolean = gameIsOver
+
+  def getAllBlocks: List[TetrisBlock] = currentBlock +: tetrisBlocks
 
   def getCellType(p: Point): CellType = {
 
@@ -89,12 +97,13 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
       createBlock()
     }
 
-    if (currentBlock.shape.contains(p)) {
-      currentBlock.color
+    if (getAllBlocks.exists(_.shape.contains(p))) {
+      getAllBlocks.find(_.shape.contains(p)).get.color
     } else {
       Empty
     }
   }
+
 }
 
 object TetrisLogic {
