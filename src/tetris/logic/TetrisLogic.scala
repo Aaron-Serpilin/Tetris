@@ -50,30 +50,38 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   def rotateRight(): Unit = ()
 
   def moveLeft(): Unit = {
-    val tetrisHorizontalBoardLimit = currentBlock.shape.map(_.x).min
-    if (tetrisHorizontalBoardLimit > 0) {
+    val lowestBlockWidth = currentBlock.shape.map(_.x).min // Returns the x-coordinate of the block with the lowest value
+    if (lowestBlockWidth > 0) {
       currentBlock = currentBlock.copy(shape = currentBlock.shape.map(point => point.copy(x = point.x - 1)))
     }
   }
 
   def moveRight(): Unit = {
-    val tetrisHorizontalBoardLimit = currentBlock.shape.map(_.x).max
-    if (tetrisHorizontalBoardLimit + 1 < gridDims.width) {
+    val highestBlockWidth = currentBlock.shape.map(_.x).max // Returns the x-coordinate of the block with the highest value
+    if (highestBlockWidth + 1 < gridDims.width) {
       currentBlock = currentBlock.copy(shape = currentBlock.shape.map(point => point.copy(x = point.x + 1)))
     }
   }
 
   private def canMoveDown(): Boolean = {
-    val tetrisBoardLimit = currentBlock.shape.map(_.y).max
-    tetrisBoardLimit + 1 < gridDims.height
+    val highestBlockHeight = currentBlock.shape.map(_.y).max // Returns the y-coordinate of the block with the highest value
+    // Check if moving down would collide with existing blocks
+    val potentialNewPositions = currentBlock.shape.map(point => point.copy(y = point.y + 1))
+    val collidesWithExistingBlocks = potentialNewPositions.exists(newPosition =>
+      tetrisBlocks.exists(existingBlock =>
+        existingBlock.shape.contains(newPosition)
+      )
+    )
+
+    highestBlockHeight + 1 < gridDims.height && !collidesWithExistingBlocks
   }
+
 
   def moveDown(): Unit = {
 
     if (canMoveDown()) {
       currentBlock = currentBlock.copy(shape = currentBlock.shape.map(point => point.copy(y = point.y + 1)))
     } else {
-      //Here the current block should remain at its final position, and then the current block should be reassigned to a new block which should be spawned
       tetrisBlocks = currentBlock +: tetrisBlocks // We store all the blocks in a List once they've reached their final positions
       createBlock()
     }
@@ -97,8 +105,8 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
       createBlock()
     }
 
-    if (getAllBlocks.exists(_.shape.contains(p))) {
-      getAllBlocks.find(_.shape.contains(p)).get.color
+    if (getAllBlocks.exists(_.shape.contains(p))) { // We check for the currentBlock and all previously placed blocks
+      getAllBlocks.find(_.shape.contains(p)).get.color // If it exists, we find it and return its color
     } else {
       Empty
     }
