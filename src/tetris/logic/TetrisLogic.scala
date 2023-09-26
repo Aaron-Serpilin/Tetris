@@ -24,18 +24,25 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   def createBlock(): Unit = {
     val numberPossibleRotations = 4
     val randomRotationIndex = randomGen.randomInt(numberPossibleRotations)
+    var horizontalMiddlePoint = 0
 
-    randomShape match {
-      case ICell => currentBlock = TetrisBlock(ICell, List(Point(3, 1), Point(4, 1), Point(5, 1), Point(6, 1)), randomRotationIndex)
-      case JCell => currentBlock = TetrisBlock(JCell, List(Point(3, 0), Point(3, 1), Point(4, 1), Point(5, 1)), randomRotationIndex)
-      case LCell => currentBlock = TetrisBlock(LCell, List(Point(3, 1), Point(4, 1), Point(5, 1), Point(5, 0)), randomRotationIndex)
-      case OCell => currentBlock = TetrisBlock(OCell, List(Point(4, 0), Point(4, 1), Point(5, 0), Point(5, 1)), randomRotationIndex)
-      case SCell => currentBlock = TetrisBlock(SCell, List(Point(3, 1), Point(4, 1), Point(4, 0), Point(5, 0)), randomRotationIndex)
-      case TCell => currentBlock = TetrisBlock(TCell, List(Point(3, 1), Point(4, 1), Point(4, 0), Point(5, 1)), randomRotationIndex)
-      case ZCell => currentBlock = TetrisBlock(ZCell, List(Point(3, 0), Point(4, 0), Point(4, 1), Point(5, 1)), randomRotationIndex)
+    if (gridDims.width % 2 == 0) {
+      horizontalMiddlePoint = gridDims.width / 2
+    } else {
+      horizontalMiddlePoint = (gridDims.width / 2) + 1
     }
 
+    randomShape match {
+      case ICell => currentBlock = TetrisBlock(ICell, List(Point(horizontalMiddlePoint - 2, 1), Point(horizontalMiddlePoint - 1, 1), Point(horizontalMiddlePoint, 1), Point(horizontalMiddlePoint + 1, 1)), randomRotationIndex)
+      case JCell => currentBlock = TetrisBlock(JCell, List(Point(horizontalMiddlePoint - 2, 0), Point(horizontalMiddlePoint - 2, 1), Point(horizontalMiddlePoint - 1, 1), Point(horizontalMiddlePoint, 1)), randomRotationIndex)
+      case LCell => currentBlock = TetrisBlock(LCell, List(Point(horizontalMiddlePoint - 2, 1), Point(horizontalMiddlePoint - 1, 1), Point(horizontalMiddlePoint, 1), Point(horizontalMiddlePoint, 0)), randomRotationIndex)
+      case OCell => currentBlock = TetrisBlock(OCell, List(Point(horizontalMiddlePoint - 1, 0), Point(horizontalMiddlePoint, 0), Point(horizontalMiddlePoint - 1, 1), Point(horizontalMiddlePoint, 1)), randomRotationIndex)
+      case SCell => currentBlock = TetrisBlock(SCell, List(Point(horizontalMiddlePoint - 1, 0), Point(horizontalMiddlePoint, 0), Point(horizontalMiddlePoint, 1), Point(horizontalMiddlePoint + 1, 1)), randomRotationIndex)
+      case TCell => currentBlock = TetrisBlock(TCell, List(Point(horizontalMiddlePoint - 1, 0), Point(horizontalMiddlePoint, 0), Point(horizontalMiddlePoint + 1, 0), Point(horizontalMiddlePoint, 1)), randomRotationIndex)
+      case ZCell => currentBlock = TetrisBlock(ZCell, List(Point(horizontalMiddlePoint - 1, 1), Point(horizontalMiddlePoint, 1), Point(horizontalMiddlePoint, 0), Point(horizontalMiddlePoint + 1, 0)), randomRotationIndex)
+    }
   }
+
 
   def rotateLeft(): Unit = ()
 
