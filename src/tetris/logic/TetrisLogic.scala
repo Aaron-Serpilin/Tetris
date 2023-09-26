@@ -4,23 +4,22 @@ import engine.graphics.Rectangle
 import engine.random.{RandomGenerator, ScalaRandomGen}
 import tetris.logic.TetrisLogic._
 
-//case class GameState ()
-
 case class TetrisBlock(color: CellType, shape: List[Point], rotation: Int)
 
-class TetrisLogic(val randomGen: RandomGenerator, val gridDims : Dimensions, val initialBoard: Seq[Seq[CellType]]) {
+class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val initialBoard: Seq[Seq[CellType]]) {
 
-  def this(random: RandomGenerator, gridDims : Dimensions) =
+  def this(random: RandomGenerator, gridDims: Dimensions) =
     this(random, gridDims, makeEmptyBoard(gridDims))
 
   def this() =
     this(new ScalaRandomGen(), DefaultDims, makeEmptyBoard(DefaultDims))
 
-  private val gameIsOver = false;
+  private val gameIsOver = false
   private val blockTypes: List[CellType] = List(ICell, JCell, LCell, OCell, SCell, TCell, ZCell)
   private var currentBlock: TetrisBlock = _
   private val randomShapeIndex = randomGen.randomInt(blockTypes.length)
   private val randomShape = blockTypes(randomShapeIndex)
+  private var tetrisBlocks: List[TetrisBlock] = List()
 
   def createBlock(): Unit = {
     val numberPossibleRotations = 4
@@ -35,6 +34,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims : Dimensions, val
       case TCell => currentBlock = TetrisBlock(TCell, List(Point(3, 1), Point(4, 1), Point(4, 0), Point(5, 1)), randomRotationIndex)
       case ZCell => currentBlock = TetrisBlock(ZCell, List(Point(3, 0), Point(4, 0), Point(4, 1), Point(5, 1)), randomRotationIndex)
     }
+    tetrisBlocks = currentBlock +: tetrisBlocks // We store all the blocks in a List
   }
 
   def rotateLeft(): Unit = ()
@@ -46,32 +46,38 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims : Dimensions, val
   def moveRight(): Unit = ()
 
   def moveDown(): Unit = {
-//    for (blockPoint <- currentBlock.shape) {
-//      blockPoint.y -= 1
-//    }
+
+    if (currentBlock == null) {
+      createBlock()
+    }
+
+    currentBlock = currentBlock.copy(shape = currentBlock.shape.map(point => point.copy(y = point.y + 1)))
   }
 
   def doHardDrop(): Unit = ()
 
   def isGameOver: Boolean = gameIsOver
 
-  def getCellType(p : Point): CellType = {
-    createBlock()
+  def getCellType(p: Point): CellType = {
+
+    if (currentBlock == null) {
+      createBlock()
+    }
+
     if (currentBlock.shape.contains(p)) {
       currentBlock.color
     } else {
       Empty
     }
   }
-
 }
 
 object TetrisLogic {
 
-  val FramesPerSecond: Int = 1/100
+  val FramesPerSecond: Int = 1
   val DrawSizeFactor = 1.0
 
-  def makeEmptyBoard(gridDims : Dimensions): Seq[Seq[CellType]] = {
+  def makeEmptyBoard(gridDims: Dimensions): Seq[Seq[CellType]] = {
     val emptyLine = Seq.fill(gridDims.width)(Empty)
     Seq.fill(gridDims.height)(emptyLine)
   }
@@ -80,11 +86,9 @@ object TetrisLogic {
   val NrTopInvisibleLines: Int = 4
   val DefaultVisibleHeight: Int = 20
   val DefaultHeight: Int = DefaultVisibleHeight + NrTopInvisibleLines
-  val DefaultDims : Dimensions = Dimensions(width = DefaultWidth, height = DefaultHeight)
+  val DefaultDims: Dimensions = Dimensions(width = DefaultWidth, height = DefaultHeight)
 
-
-  def apply() = new TetrisLogic(new ScalaRandomGen(),
+  def apply(): TetrisLogic = new TetrisLogic(new ScalaRandomGen(),
     DefaultDims,
     makeEmptyBoard(DefaultDims))
-
 }
