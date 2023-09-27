@@ -4,7 +4,7 @@ import engine.graphics.Rectangle
 import engine.random.{RandomGenerator, ScalaRandomGen}
 import tetris.logic.TetrisLogic._
 
-case class TetrisBlock(color: CellType, shape: List[Point], rotation: Int)
+case class TetrisBlock(color: CellType, shape: List[Point])
 
 class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val initialBoard: Seq[Seq[CellType]]) {
 
@@ -18,39 +18,53 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   private val blockTypes: List[CellType] = List(ICell, JCell, LCell, OCell, SCell, TCell, ZCell)
   private var currentBlock: TetrisBlock = _
   private var tetrisBlocks: List[TetrisBlock] = List()
+  private var anchorPoint = 0
+
+  if (gridDims.width % 2 == 0) {
+    anchorPoint = gridDims.width / 2
+  } else {
+    anchorPoint = (gridDims.width / 2) + 1
+  }
+
+  private val anchorPosition = Point(anchorPoint - 1, 1)
 
   def createBlock(): Unit = {
-    val numberPossibleRotations = 4
-    val randomRotationIndex = randomGen.randomInt(numberPossibleRotations)
-    var anchorPoint = 0
-
-    if (gridDims.width % 2 == 0) {
-      anchorPoint = gridDims.width / 2
-    } else {
-      anchorPoint = (gridDims.width / 2) + 1
-    }
-
     val randomShapeIndex = randomGen.randomInt(blockTypes.length)
     val randomShape = blockTypes(randomShapeIndex)
 
     randomShape match {
-      case ICell => currentBlock = TetrisBlock(ICell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint + 1, 1)), randomRotationIndex)
-      case JCell => currentBlock = TetrisBlock(JCell, List(Point(anchorPoint - 2, 0), Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1)), randomRotationIndex)
-      case LCell => currentBlock = TetrisBlock(LCell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint, 0)), randomRotationIndex)
-      case OCell => currentBlock = TetrisBlock(OCell, List(Point(anchorPoint - 1, 0), Point(anchorPoint, 0), Point(anchorPoint - 1, 1), Point(anchorPoint, 1)), randomRotationIndex)
-      case SCell => currentBlock = TetrisBlock(SCell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint - 1, 0), Point(anchorPoint, 0)), randomRotationIndex)
-      case TCell => currentBlock = TetrisBlock(TCell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint - 1, 0)), randomRotationIndex)
-      case ZCell => currentBlock = TetrisBlock(ZCell, List(Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint - 1, 0), Point(anchorPoint - 2, 0)), randomRotationIndex)
+      case ICell => currentBlock = TetrisBlock(ICell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint + 1, 1)))
+      case JCell => currentBlock = TetrisBlock(JCell, List(Point(anchorPoint - 2, 0), Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1)))
+      case LCell => currentBlock = TetrisBlock(LCell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint, 0)))
+      case OCell => currentBlock = TetrisBlock(OCell, List(Point(anchorPoint - 1, 0), Point(anchorPoint, 0), Point(anchorPoint - 1, 1), Point(anchorPoint, 1)))
+      case SCell => currentBlock = TetrisBlock(SCell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint - 1, 0), Point(anchorPoint, 0)))
+      case TCell => currentBlock = TetrisBlock(TCell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint - 1, 0)))
+      case ZCell => currentBlock = TetrisBlock(ZCell, List(Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint - 1, 0), Point(anchorPoint - 2, 0)))
     }
   }
 
-
   def rotateLeft(): Unit = {
-    //(x,y) -> (-y + 1,x)
+
+    if (currentBlock.color != OCell) {
+      val newShape = currentBlock.shape.map { point =>
+        val newX = point.y + anchorPoint
+        val newY = -point.x + anchorPoint + 1
+        Point(newX, newY)
+      }
+      currentBlock = currentBlock.copy(shape = newShape)
+    }
   }
 
   def rotateRight(): Unit = {
-    //(x,y) -> (y ,-x + 1)
+
+    if (currentBlock.color != OCell) {
+      val newShape = currentBlock.shape.map { point =>
+        val newX = -point.y + anchorPoint
+        val newY = point.x - anchorPoint + 2
+        Point(newX, newY)
+      }
+      currentBlock = currentBlock.copy(shape = newShape)
+    }
   }
 
   def moveLeft(): Unit = {
@@ -79,7 +93,6 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     highestBlockHeight + 1 < gridDims.height && !collidesWithExistingBlocks
   }
 
-
   def moveDown(): Unit = {
 
     if (canMoveDown()) {
@@ -96,7 +109,6 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
       moveDown()
     }
   }
-
 
   def isGameOver: Boolean = gameIsOver
 

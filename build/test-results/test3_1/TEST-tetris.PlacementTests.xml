@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tetris.PlacementTests" tests="9" skipped="0" failures="0" errors="0" timestamp="2023-09-27T11:52:17" hostname="Jays-MacBook-Pro-2.local" time="0.156">
+<testsuite name="tetris.PlacementTests" tests="9" skipped="0" failures="0" errors="0" timestamp="2023-09-27T17:37:33" hostname="Jays-MacBook-Pro-2.local" time="0.15">
   <properties/>
-  <testcase name="testPlacementI" classname="tetris.PlacementTests" time="0.127"/>
+  <testcase name="testPlacementI" classname="tetris.PlacementTests" time="0.125"/>
   <testcase name="testPlacementIEven" classname="tetris.PlacementTests" time="0.003"/>
   <testcase name="testPlacementJ" classname="tetris.PlacementTests" time="0.003"/>
   <testcase name="testPlacementL" classname="tetris.PlacementTests" time="0.002"/>
   <testcase name="testPlacementO" classname="tetris.PlacementTests" time="0.001"/>
-  <testcase name="testPlacementOEven" classname="tetris.PlacementTests" time="0.004"/>
+  <testcase name="testPlacementOEven" classname="tetris.PlacementTests" time="0.003"/>
   <testcase name="testPlacementS" classname="tetris.PlacementTests" time="0.002"/>
   <testcase name="testPlacementT" classname="tetris.PlacementTests" time="0.002"/>
   <testcase name="testPlacementZ" classname="tetris.PlacementTests" time="0.002"/>
