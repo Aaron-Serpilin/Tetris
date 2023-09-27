@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tetris.RotationTests" tests="7" skipped="0" failures="6" errors="0" timestamp="2023-09-26T15:45:19" hostname="Jays-MacBook-Pro-2.local" time="0.072">
+<testsuite name="tetris.RotationTests" tests="7" skipped="0" failures="6" errors="0" timestamp="2023-09-27T11:52:17" hostname="Jays-MacBook-Pro-2.local" time="0.092">
   <properties/>
-  <testcase name="testIRotations" classname="tetris.RotationTests" time="0.012">
+  <testcase name="testIRotations" classname="tetris.RotationTests" time="0.03">
     <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: Check Readme.md for how pieces should rotate&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=0, actions=&lt;&gt;&#10;Want | Got ✓&#10;------------&#10;.... | .... &#10;IIII | IIII &#10;.... | .... &#10;.... | .... &#10;&#10;step=1, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;..I. | .... &#10;..I. | IIII &#10;..I. | .... &#10;..I. | .... &#10;&#10;step=2, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.... | .... &#10;.... | IIII &#10;IIII | .... &#10;.... | .... &#10;&#10;step=3, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.I.. | .... &#10;.I.. | IIII &#10;.I.. | .... &#10;.I.. | .... &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
 Hint: Check Readme.md for how pieces should rotate
 --------------------------------------------------------------------------------
@@ -124,7 +124,7 @@ Want | Got ✗
 	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
 </failure>
   </testcase>
-  <testcase name="testJRotations" classname="tetris.RotationTests" time="0.007">
+  <testcase name="testJRotations" classname="tetris.RotationTests" time="0.01">
     <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: Check Readme.md for how pieces should rotate&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=1, actions=&lt;&gt;&#10;Want | Got ✓&#10;------------&#10;J..  | J..  &#10;JJJ  | JJJ  &#10;...  | ...  &#10;&#10;step=1, rand=1, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.JJ  | J..  &#10;.J.  | JJJ  &#10;.J.  | ...  &#10;&#10;step=2, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;...  | J..  &#10;JJJ  | JJJ  &#10;..J  | ...  &#10;&#10;step=3, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.J.  | J..  &#10;.J.  | JJJ  &#10;JJ.  | ...  &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
 Hint: Check Readme.md for how pieces should rotate
 --------------------------------------------------------------------------------
@@ -243,7 +243,7 @@ JJ.  | ...
 	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
 </failure>
   </testcase>
-  <testcase name="testLRotations" classname="tetris.RotationTests" time="0.008">
+  <testcase name="testLRotations" classname="tetris.RotationTests" time="0.012">
     <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: Check Readme.md for how pieces should rotate&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=2, actions=&lt;&gt;&#10;Want | Got ✓&#10;------------&#10;..L  | ..L  &#10;LLL  | LLL  &#10;...  | ...  &#10;&#10;step=1, rand=1, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.L.  | ..L  &#10;.L.  | LLL  &#10;.LL  | ...  &#10;&#10;step=2, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;...  | ..L  &#10;LLL  | LLL  &#10;L..  | ...  &#10;&#10;step=3, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;LL.  | ..L  &#10;.L.  | LLL  &#10;.L.  | ...  &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
 Hint: Check Readme.md for how pieces should rotate
 --------------------------------------------------------------------------------
@@ -362,39 +362,39 @@ LL.  | ..L
 	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
 </failure>
   </testcase>
-  <testcase name="testORotations" classname="tetris.RotationTests" time="0.016"/>
-  <testcase name="testSRotations" classname="tetris.RotationTests" time="0.013">
-    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: Check Readme.md for how pieces should rotate&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=4, actions=&lt;&gt;&#10;Want | Got ✗&#10;------------&#10;.SS  | .SS  &#10;SS.  | ..S  &#10;...  | ...  &#10;&#10;step=1, rand=1, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.S.  | .SS  &#10;.SS  | ..S  &#10;..S  | ...  &#10;&#10;step=2, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;...  | .SS  &#10;.SS  | ..S  &#10;SS.  | ...  &#10;&#10;step=3, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;S..  | .SS  &#10;SS.  | ..S  &#10;.S.  | ...  &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
+  <testcase name="testORotations" classname="tetris.RotationTests" time="0.007"/>
+  <testcase name="testSRotations" classname="tetris.RotationTests" time="0.014">
+    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: Check Readme.md for how pieces should rotate&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=4, actions=&lt;&gt;&#10;Want | Got ✓&#10;------------&#10;.SS  | .SS  &#10;SS.  | SS.  &#10;...  | ...  &#10;&#10;step=1, rand=1, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.S.  | .SS  &#10;.SS  | SS.  &#10;..S  | ...  &#10;&#10;step=2, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;...  | .SS  &#10;.SS  | SS.  &#10;SS.  | ...  &#10;&#10;step=3, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;S..  | .SS  &#10;SS.  | SS.  &#10;.S.  | ...  &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
 Hint: Check Readme.md for how pieces should rotate
 --------------------------------------------------------------------------------
 This is what went wrong:
 
 step=0, rand=4, actions=&lt;&gt;
-Want | Got ✗
+Want | Got ✓
 ------------
 .SS  | .SS  
-SS.  | ..S  
+SS.  | SS.  
 ...  | ...  
 
 step=1, rand=1, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
 .S.  | .SS  
-.SS  | ..S  
+.SS  | SS.  
 ..S  | ...  
 
 step=2, rand=0, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
 ...  | .SS  
-.SS  | ..S  
+.SS  | SS.  
 SS.  | ...  
 
 step=3, rand=0, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
 S..  | .SS  
-SS.  | ..S  
+SS.  | SS.  
 .S.  | ...  
 
 
@@ -482,38 +482,38 @@ SS.  | ..S
 	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
 </failure>
   </testcase>
-  <testcase name="testTRotations" classname="tetris.RotationTests" time="0.007">
-    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: Check Readme.md for how pieces should rotate&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=5, actions=&lt;&gt;&#10;Want | Got ✗&#10;------------&#10;.T.  | .TT  &#10;TTT  | ..T  &#10;...  | ...  &#10;&#10;step=1, rand=1, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.T.  | .TT  &#10;.TT  | ..T  &#10;.T.  | ...  &#10;&#10;step=2, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;...  | .TT  &#10;TTT  | ..T  &#10;.T.  | ...  &#10;&#10;step=3, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.T.  | .TT  &#10;TT.  | ..T  &#10;.T.  | ...  &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
+  <testcase name="testTRotations" classname="tetris.RotationTests" time="0.008">
+    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: Check Readme.md for how pieces should rotate&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=5, actions=&lt;&gt;&#10;Want | Got ✓&#10;------------&#10;.T.  | .T.  &#10;TTT  | TTT  &#10;...  | ...  &#10;&#10;step=1, rand=1, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.T.  | .T.  &#10;.TT  | TTT  &#10;.T.  | ...  &#10;&#10;step=2, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;...  | .T.  &#10;TTT  | TTT  &#10;.T.  | ...  &#10;&#10;step=3, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.T.  | .T.  &#10;TT.  | TTT  &#10;.T.  | ...  &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
 Hint: Check Readme.md for how pieces should rotate
 --------------------------------------------------------------------------------
 This is what went wrong:
 
 step=0, rand=5, actions=&lt;&gt;
-Want | Got ✗
+Want | Got ✓
 ------------
-.T.  | .TT  
-TTT  | ..T  
+.T.  | .T.  
+TTT  | TTT  
 ...  | ...  
 
 step=1, rand=1, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
-.T.  | .TT  
-.TT  | ..T  
+.T.  | .T.  
+.TT  | TTT  
 .T.  | ...  
 
 step=2, rand=0, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
-...  | .TT  
-TTT  | ..T  
+...  | .T.  
+TTT  | TTT  
 .T.  | ...  
 
 step=3, rand=0, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
-.T.  | .TT  
-TT.  | ..T  
+.T.  | .T.  
+TT.  | TTT  
 .T.  | ...  
 
 
@@ -601,37 +601,37 @@ TT.  | ..T
 	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
 </failure>
   </testcase>
-  <testcase name="testZRotations" classname="tetris.RotationTests" time="0.005">
-    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: Check Readme.md for how pieces should rotate&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=6, actions=&lt;&gt;&#10;Want | Got ✗&#10;------------&#10;ZZ.  | ..Z  &#10;.ZZ  | .ZZ  &#10;...  | ...  &#10;&#10;step=1, rand=1, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;..Z  | ..Z  &#10;.ZZ  | .ZZ  &#10;.Z.  | ...  &#10;&#10;step=2, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;...  | ..Z  &#10;ZZ.  | .ZZ  &#10;.ZZ  | ...  &#10;&#10;step=3, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.Z.  | ..Z  &#10;ZZ.  | .ZZ  &#10;Z..  | ...  &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
+  <testcase name="testZRotations" classname="tetris.RotationTests" time="0.007">
+    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: Check Readme.md for how pieces should rotate&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=6, actions=&lt;&gt;&#10;Want | Got ✓&#10;------------&#10;ZZ.  | ZZ.  &#10;.ZZ  | .ZZ  &#10;...  | ...  &#10;&#10;step=1, rand=1, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;..Z  | ZZ.  &#10;.ZZ  | .ZZ  &#10;.Z.  | ...  &#10;&#10;step=2, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;...  | ZZ.  &#10;ZZ.  | .ZZ  &#10;.ZZ  | ...  &#10;&#10;step=3, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.Z.  | ZZ.  &#10;ZZ.  | .ZZ  &#10;Z..  | ...  &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
 Hint: Check Readme.md for how pieces should rotate
 --------------------------------------------------------------------------------
 This is what went wrong:
 
 step=0, rand=6, actions=&lt;&gt;
-Want | Got ✗
+Want | Got ✓
 ------------
-ZZ.  | ..Z  
+ZZ.  | ZZ.  
 .ZZ  | .ZZ  
 ...  | ...  
 
 step=1, rand=1, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
-..Z  | ..Z  
+..Z  | ZZ.  
 .ZZ  | .ZZ  
 .Z.  | ...  
 
 step=2, rand=0, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
-...  | ..Z  
+...  | ZZ.  
 ZZ.  | .ZZ  
 .ZZ  | ...  
 
 step=3, rand=0, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
-.Z.  | ..Z  
+.Z.  | ZZ.  
 ZZ.  | .ZZ  
 Z..  | ...  
 

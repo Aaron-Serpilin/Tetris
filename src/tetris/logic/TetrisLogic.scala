@@ -22,32 +22,36 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   def createBlock(): Unit = {
     val numberPossibleRotations = 4
     val randomRotationIndex = randomGen.randomInt(numberPossibleRotations)
-    var horizontalMiddlePoint = 0
+    var anchorPoint = 0
 
     if (gridDims.width % 2 == 0) {
-      horizontalMiddlePoint = gridDims.width / 2
+      anchorPoint = gridDims.width / 2
     } else {
-      horizontalMiddlePoint = (gridDims.width / 2) + 1
+      anchorPoint = (gridDims.width / 2) + 1
     }
 
     val randomShapeIndex = randomGen.randomInt(blockTypes.length)
     val randomShape = blockTypes(randomShapeIndex)
 
     randomShape match {
-      case ICell => currentBlock = TetrisBlock(ICell, List(Point(horizontalMiddlePoint - 2, 1), Point(horizontalMiddlePoint - 1, 1), Point(horizontalMiddlePoint, 1), Point(horizontalMiddlePoint + 1, 1)), randomRotationIndex)
-      case JCell => currentBlock = TetrisBlock(JCell, List(Point(horizontalMiddlePoint - 2, 0), Point(horizontalMiddlePoint - 2, 1), Point(horizontalMiddlePoint - 1, 1), Point(horizontalMiddlePoint, 1)), randomRotationIndex)
-      case LCell => currentBlock = TetrisBlock(LCell, List(Point(horizontalMiddlePoint - 2, 1), Point(horizontalMiddlePoint - 1, 1), Point(horizontalMiddlePoint, 1), Point(horizontalMiddlePoint, 0)), randomRotationIndex)
-      case OCell => currentBlock = TetrisBlock(OCell, List(Point(horizontalMiddlePoint - 1, 0), Point(horizontalMiddlePoint, 0), Point(horizontalMiddlePoint - 1, 1), Point(horizontalMiddlePoint, 1)), randomRotationIndex)
-      case SCell => currentBlock = TetrisBlock(SCell, List(Point(horizontalMiddlePoint - 1, 0), Point(horizontalMiddlePoint, 0), Point(horizontalMiddlePoint, 1), Point(horizontalMiddlePoint + 1, 1)), randomRotationIndex)
-      case TCell => currentBlock = TetrisBlock(TCell, List(Point(horizontalMiddlePoint - 1, 0), Point(horizontalMiddlePoint, 0), Point(horizontalMiddlePoint + 1, 0), Point(horizontalMiddlePoint, 1)), randomRotationIndex)
-      case ZCell => currentBlock = TetrisBlock(ZCell, List(Point(horizontalMiddlePoint - 1, 1), Point(horizontalMiddlePoint, 1), Point(horizontalMiddlePoint, 0), Point(horizontalMiddlePoint + 1, 0)), randomRotationIndex)
+      case ICell => currentBlock = TetrisBlock(ICell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint + 1, 1)), randomRotationIndex)
+      case JCell => currentBlock = TetrisBlock(JCell, List(Point(anchorPoint - 2, 0), Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1)), randomRotationIndex)
+      case LCell => currentBlock = TetrisBlock(LCell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint, 0)), randomRotationIndex)
+      case OCell => currentBlock = TetrisBlock(OCell, List(Point(anchorPoint - 1, 0), Point(anchorPoint, 0), Point(anchorPoint - 1, 1), Point(anchorPoint, 1)), randomRotationIndex)
+      case SCell => currentBlock = TetrisBlock(SCell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint - 1, 0), Point(anchorPoint, 0)), randomRotationIndex)
+      case TCell => currentBlock = TetrisBlock(TCell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint - 1, 0)), randomRotationIndex)
+      case ZCell => currentBlock = TetrisBlock(ZCell, List(Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint - 1, 0), Point(anchorPoint - 2, 0)), randomRotationIndex)
     }
   }
 
 
-  def rotateLeft(): Unit = ()
+  def rotateLeft(): Unit = {
+    //(x,y) -> (-y + 1,x)
+  }
 
-  def rotateRight(): Unit = ()
+  def rotateRight(): Unit = {
+    //(x,y) -> (y ,-x + 1)
+  }
 
   def moveLeft(): Unit = {
     val lowestBlockWidth = currentBlock.shape.map(_.x).min // Returns the x-coordinate of the block with the lowest value
@@ -65,8 +69,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
   private def canMoveDown(): Boolean = {
     val highestBlockHeight = currentBlock.shape.map(_.y).max // Returns the y-coordinate of the block with the highest value
-    // Check if moving down would collide with existing blocks
-    val potentialNewPositions = currentBlock.shape.map(point => point.copy(y = point.y + 1))
+    val potentialNewPositions = currentBlock.shape.map(point => point.copy(y = point.y + 1)) // Check if moving down would collide with existing blocks
     val collidesWithExistingBlocks = potentialNewPositions.exists(newPosition =>
       tetrisBlocks.exists(existingBlock =>
         existingBlock.shape.contains(newPosition)
