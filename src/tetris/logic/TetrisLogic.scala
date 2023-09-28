@@ -4,7 +4,14 @@ import engine.graphics.Rectangle
 import engine.random.{RandomGenerator, ScalaRandomGen}
 import tetris.logic.TetrisLogic._
 
-case class TetrisBlock(color: CellType, shape: List[Point])
+case class GameState (
+                     gameIsOver: Boolean,
+                     currentBlock: Tetromino,
+                     currentBlockShape: List[Point],
+                     currentBlockColor: CellType,
+                     anchorPoint: Int,
+                     tetrisBlocks: List[Tetromino]
+                     )
 
 class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val initialBoard: Seq[Seq[CellType]]) {
 
@@ -14,91 +21,132 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   def this() =
     this(new ScalaRandomGen(), DefaultDims, makeEmptyBoard(DefaultDims))
 
-  private val gameIsOver = false
+  private var currentGameState: GameState = GameState(
+    gameIsOver = false,
+    currentBlock = null,
+    currentBlockShape = List(),
+    currentBlockColor = Empty,
+    anchorPoint = 0,
+    tetrisBlocks = List()
+  )
+
   private val blockTypes: List[CellType] = List(ICell, JCell, LCell, OCell, SCell, TCell, ZCell)
-  private var currentBlock: TetrisBlock = _
-  private var tetrisBlocks: List[TetrisBlock] = List()
-  private var anchorPoint = 0
+  private val tetrisBlocks: List[Tetromino] = List()
 
   if (gridDims.width % 2 == 0) {
-    anchorPoint = gridDims.width / 2
+    currentGameState = currentGameState.copy(anchorPoint = gridDims.width / 2)
   } else {
-    anchorPoint = (gridDims.width / 2) + 1
+    currentGameState = currentGameState.copy(anchorPoint = (gridDims.width / 2) + 1)
   }
 
-  private val anchorPosition = Point(anchorPoint - 1, 1)
+  //private val anchorPosition = Point(anchorPoint - 1, 1)
 
   def createBlock(): Unit = {
     val randomShapeIndex = randomGen.randomInt(blockTypes.length)
     val randomShape = blockTypes(randomShapeIndex)
 
     randomShape match {
-      case ICell => currentBlock = TetrisBlock(ICell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint + 1, 1)))
-      case JCell => currentBlock = TetrisBlock(JCell, List(Point(anchorPoint - 2, 0), Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1)))
-      case LCell => currentBlock = TetrisBlock(LCell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint, 0)))
-      case OCell => currentBlock = TetrisBlock(OCell, List(Point(anchorPoint - 1, 0), Point(anchorPoint, 0), Point(anchorPoint - 1, 1), Point(anchorPoint, 1)))
-      case SCell => currentBlock = TetrisBlock(SCell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint - 1, 0), Point(anchorPoint, 0)))
-      case TCell => currentBlock = TetrisBlock(TCell, List(Point(anchorPoint - 2, 1), Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint - 1, 0)))
-      case ZCell => currentBlock = TetrisBlock(ZCell, List(Point(anchorPoint - 1, 1), Point(anchorPoint, 1), Point(anchorPoint - 1, 0), Point(anchorPoint - 2, 0)))
+      case ICell => currentGameState = currentGameState.copy(
+          currentBlock = new ICellBlock(currentGameState.anchorPoint),
+          currentBlockShape = List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint + 1, 1)),
+          currentBlockColor = ICell
+        )
+      case JCell =>
+        currentGameState = currentGameState.copy(
+          currentBlock = new JCellBlock(currentGameState.anchorPoint),
+          currentBlockShape = List(Point(currentGameState.anchorPoint - 2, 0), Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1)),
+          currentBlockColor = JCell
+        )
+      case LCell =>
+        currentGameState = currentGameState.copy(
+          currentBlock = new LCellBlock(currentGameState.anchorPoint),
+          currentBlockShape = List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint, 0)),
+          currentBlockColor = LCell
+        )
+      case OCell =>
+        currentGameState = currentGameState.copy(
+          currentBlock = new OCellBlock(currentGameState.anchorPoint),
+          currentBlockShape = List(Point(currentGameState.anchorPoint - 1, 0), Point(currentGameState.anchorPoint, 0), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1)),
+          currentBlockColor = OCell
+        )
+      case SCell =>
+        currentGameState = currentGameState.copy(
+          currentBlock = new SCellBlock(currentGameState.anchorPoint),
+          currentBlockShape = List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint - 1, 0), Point(currentGameState.anchorPoint, 0)),
+          currentBlockColor = SCell
+        )
+      case TCell =>
+        currentGameState = currentGameState.copy(
+          currentBlock = new TCellBlock(currentGameState.anchorPoint),
+          currentBlockShape = List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint - 1, 0)),
+          currentBlockColor = TCell
+        )
+      case ZCell =>
+        currentGameState = currentGameState.copy(
+          currentBlock = new ZCellBlock(currentGameState.anchorPoint),
+          currentBlockShape = List(Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint - 1, 0), Point(currentGameState.anchorPoint - 2, 0)),
+          currentBlockColor = ZCell
+        )
     }
+
   }
 
   def rotateLeft(): Unit = {
-
-    if (currentBlock.color != OCell) {
-      val newShape = currentBlock.shape.map { point =>
-        val newX = point.y + anchorPoint
-        val newY = -point.x + anchorPoint + 1
-        Point(newX, newY)
-      }
-      currentBlock = currentBlock.copy(shape = newShape)
-    }
+//
+//    if (currentGameState.currentBlockColor != OCell) {
+//      val newShape = currentGameState.currentBlockShape.map { point =>
+//        val newX = point.y + currentGameState.anchorPoint
+//        val newY = -point.x + currentGameState.anchorPoint + 1
+//        Point(newX, newY)
+//      }
+//      currentGameState = currentGameState.copy(currentBlockShape = newShape)
+//    }
   }
 
   def rotateRight(): Unit = {
-
-    if (currentBlock.color != OCell) {
-      val newShape = currentBlock.shape.map { point =>
-        val newX = -point.y + anchorPoint
-        val newY = point.x - anchorPoint + 2
-        Point(newX, newY)
-      }
-      currentBlock = currentBlock.copy(shape = newShape)
-    }
+//
+//    if (currentGameState.currentBlockColor != OCell) {
+//      val newShape = currentGameState.currentBlockShape.map { point =>
+//        val newX = -point.y + currentGameState.anchorPoint
+//        val newY = point.x - currentGameState.anchorPoint + 2
+//        Point(newX, newY)
+//      }
+//      currentGameState = currentGameState.copy(currentBlockShape = newShape)
+//    }
   }
 
   def moveLeft(): Unit = {
-    val lowestBlockWidth = currentBlock.shape.map(_.x).min // Returns the x-coordinate of the block with the lowest value
+    val lowestBlockWidth = currentGameState.currentBlockShape.map(_.x).min // Returns the x-coordinate of the block with the lowest value
     if (lowestBlockWidth > 0) {
-      currentBlock = currentBlock.copy(shape = currentBlock.shape.map(point => point.copy(x = point.x - 1)))
+      currentGameState = currentGameState.copy(currentBlockShape = currentGameState.currentBlockShape.map(point => point.copy(x = point.x - 1)))
     }
   }
 
   def moveRight(): Unit = {
-    val highestBlockWidth = currentBlock.shape.map(_.x).max // Returns the x-coordinate of the block with the highest value
+    val highestBlockWidth = currentGameState.currentBlockShape.map(_.x).max // Returns the x-coordinate of the block with the highest value
     if (highestBlockWidth + 1 < gridDims.width) {
-      currentBlock = currentBlock.copy(shape = currentBlock.shape.map(point => point.copy(x = point.x + 1)))
+      currentGameState = currentGameState.copy(currentBlockShape = currentGameState.currentBlockShape.map(point => point.copy(x = point.x + 1)))
     }
   }
 
   private def canMoveDown(): Boolean = {
-    val highestBlockHeight = currentBlock.shape.map(_.y).max // Returns the y-coordinate of the block with the highest value
-    val potentialNewPositions = currentBlock.shape.map(point => point.copy(y = point.y + 1)) // Check if moving down would collide with existing blocks
-    val collidesWithExistingBlocks = potentialNewPositions.exists(newPosition =>
-      tetrisBlocks.exists(existingBlock =>
-        existingBlock.shape.contains(newPosition)
-      )
-    )
+    val highestBlockHeight = currentGameState.currentBlockShape.map(_.y).max // Returns the y-coordinate of the block with the highest value
+    val potentialNewPositions = currentGameState.currentBlockShape.map(point => point.copy(y = point.y + 1)) // Check if moving down would collide with existing blocks
+//    val collidesWithExistingBlocks = potentialNewPositions.exists(newPosition =>
+//      currentGameState.tetrisBlocks.exists(existingBlock =>
+//        existingBlock.shape.contains(newPosition)
+//      )
+//    )
 
-    highestBlockHeight + 1 < gridDims.height && !collidesWithExistingBlocks
+    highestBlockHeight + 1 < gridDims.height //&& !collidesWithExistingBlocks
   }
 
   def moveDown(): Unit = {
 
     if (canMoveDown()) {
-      currentBlock = currentBlock.copy(shape = currentBlock.shape.map(point => point.copy(y = point.y + 1)))
+      currentGameState = currentGameState.copy(currentBlockShape = currentGameState.currentBlockShape.map(point => point.copy(y = point.y + 1)))
     } else {
-      tetrisBlocks = currentBlock +: tetrisBlocks // We store all the blocks in a List once they've reached their final positions
+      currentGameState = currentGameState.copy(tetrisBlocks = currentGameState.currentBlock +: currentGameState.tetrisBlocks) // We store all the blocks in a List once they've reached their final positions
       createBlock()
     }
 
@@ -110,22 +158,29 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     }
   }
 
-  def isGameOver: Boolean = gameIsOver
+  def isGameOver: Boolean = currentGameState.gameIsOver
 
-  def getAllBlocks: List[TetrisBlock] = currentBlock +: tetrisBlocks
+  def getAllBlocks: List[Tetromino] = currentGameState.currentBlock +: currentGameState.tetrisBlocks
 
   def getCellType(p: Point): CellType = {
 
-    if (currentBlock == null) {
+    if (currentGameState.currentBlock == null) {
       createBlock()
     }
 
-    if (getAllBlocks.exists(_.shape.contains(p))) { // We check for the currentBlock and all previously placed blocks
-      getAllBlocks.find(_.shape.contains(p)).get.color // If it exists, we find it and return its color
-    } else {
-      Empty
+    if (currentGameState.currentBlockShape.contains(p)) {
+      return currentGameState.currentBlockColor
     }
+
+//    for (block <- currentGameState.tetrisBlocks) {
+//      if (block.shape.contains(p)) {
+//        return block.color
+//      }
+//    }
+
+    Empty
   }
+
 
 }
 
