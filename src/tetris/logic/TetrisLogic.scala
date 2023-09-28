@@ -128,20 +128,20 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     }
   }
 
-  private def canMoveDown(): Boolean = {
-    val highestBlockHeight = currentGameState.currentBlockShape.map(_.y).max // Returns the y-coordinate of the block with the highest value
-    val potentialNewPositions = currentGameState.currentBlockShape.map(point => point.copy(y = point.y + 1)) // Check if moving down would collide with existing blocks
-//    val collidesWithExistingBlocks = potentialNewPositions.exists(newPosition =>
-//      currentGameState.tetrisBlocks.exists(existingBlock =>
-//        existingBlock.shape.contains(newPosition)
-//      )
-//    )
-
-    highestBlockHeight + 1 < gridDims.height //&& !collidesWithExistingBlocks
+  def canMoveDown(gameState: GameState): Boolean = {
+    val highestBlockHeight = gameState.currentBlockShape.map(_.y).max // Returns the y-coordinate of the block with the highest value
+    val potentialNewPositions = gameState.currentBlockShape.map(point => point.copy(y = point.y + 1)) // Check if moving down would collide with existing blocks
+    val collidesWithExistingBlocks = potentialNewPositions.exists(newPosition =>
+      gameState.tetrisBlocks.exists(existingBlock =>
+        existingBlock._2.contains(newPosition)
+      )
+    )
+    highestBlockHeight + 1 < gridDims.height && !collidesWithExistingBlocks
   }
 
+
   def moveDown(): Unit = {
-    if (canMoveDown()) {
+    if (canMoveDown(currentGameState)) {
       currentGameState = currentGameState.copy(currentBlockShape = currentGameState.currentBlockShape.map(point => point.copy(y = point.y + 1)))
     } else {
       val newTetrisBlock = (currentGameState.currentBlockColor, currentGameState.currentBlockShape)
@@ -153,7 +153,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
 
   def doHardDrop(): Unit = {
-    while (canMoveDown()) {
+    while (canMoveDown(currentGameState)) {
       moveDown()
     }
   }
@@ -182,7 +182,6 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
     Empty
   }
-
 
 }
 
