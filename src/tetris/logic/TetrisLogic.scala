@@ -38,8 +38,6 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     currentGameState = currentGameState.copy(anchorPoint = (gridDims.width / 2) + 1)
   }
 
-  //private val anchorPosition = Point(anchorPoint - 1, 1)
-
   def createBlock(): Unit = {
     val randomShapeIndex = randomGen.randomInt(blockTypes.length)
     val randomShape = blockTypes(randomShapeIndex)
@@ -47,43 +45,43 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     randomShape match {
       case ICell => currentGameState = currentGameState.copy(
           currentBlock = new ICellBlock(currentGameState.anchorPoint),
-          currentBlockShape = List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint + 1, 1)),
+          currentBlockShape = new ICellBlock(currentGameState.anchorPoint).initialPositions(currentGameState),
           currentBlockColor = ICell
         )
       case JCell =>
         currentGameState = currentGameState.copy(
           currentBlock = new JCellBlock(currentGameState.anchorPoint),
-          currentBlockShape = List(Point(currentGameState.anchorPoint - 2, 0), Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1)),
+          currentBlockShape = new JCellBlock(currentGameState.anchorPoint).initialPositions(currentGameState),
           currentBlockColor = JCell
         )
       case LCell =>
         currentGameState = currentGameState.copy(
           currentBlock = new LCellBlock(currentGameState.anchorPoint),
-          currentBlockShape = List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint, 0)),
+          currentBlockShape = new LCellBlock(currentGameState.anchorPoint).initialPositions(currentGameState),
           currentBlockColor = LCell
         )
       case OCell =>
         currentGameState = currentGameState.copy(
           currentBlock = new OCellBlock(currentGameState.anchorPoint),
-          currentBlockShape = List(Point(currentGameState.anchorPoint - 1, 0), Point(currentGameState.anchorPoint, 0), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1)),
+          currentBlockShape = new OCellBlock(currentGameState.anchorPoint).initialPositions(currentGameState),
           currentBlockColor = OCell
         )
       case SCell =>
         currentGameState = currentGameState.copy(
           currentBlock = new SCellBlock(currentGameState.anchorPoint),
-          currentBlockShape = List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint - 1, 0), Point(currentGameState.anchorPoint, 0)),
+          currentBlockShape = new SCellBlock(currentGameState.anchorPoint).initialPositions(currentGameState),
           currentBlockColor = SCell
         )
       case TCell =>
         currentGameState = currentGameState.copy(
           currentBlock = new TCellBlock(currentGameState.anchorPoint),
-          currentBlockShape = List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint - 1, 0)),
+          currentBlockShape = new TCellBlock(currentGameState.anchorPoint).initialPositions(currentGameState),
           currentBlockColor = TCell
         )
       case ZCell =>
         currentGameState = currentGameState.copy(
           currentBlock = new ZCellBlock(currentGameState.anchorPoint),
-          currentBlockShape = List(Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint - 1, 0), Point(currentGameState.anchorPoint - 2, 0)),
+          currentBlockShape = new ZCellBlock(currentGameState.anchorPoint).initialPositions(currentGameState),
           currentBlockColor = ZCell
         )
     }
@@ -91,7 +89,6 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   }
 
   def rotateLeft(): Unit = {
-//
 //    if (currentGameState.currentBlockColor != OCell) {
 //      val newShape = currentGameState.currentBlockShape.map { point =>
 //        val newX = point.y + currentGameState.anchorPoint
@@ -100,10 +97,20 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 //      }
 //      currentGameState = currentGameState.copy(currentBlockShape = newShape)
 //    }
+    if (currentGameState.currentBlockColor == OCell) {
+//      val currentTetromino = new OCenteredTetrominos
+//      val rotatedTetromino = currentTetromino.rotateLeft(currentGameState.currentBlockShape, currentGameState.anchorPoint)
+//      currentGameState = currentGameState.copy(currentBlockShape = rotatedTetromino)
+    } else if (currentGameState.currentBlockColor == ICell) {
+//      val currentTetromino = new ICenteredTetrominos
+//      val rotatedTetromino = currentTetromino.rotateLeft(currentGameState.currentBlockShape, currentGameState.anchorPoint)
+//      currentGameState = currentGameState.copy(currentBlockShape = rotatedTetromino)
+    }  else {
+
+    }
   }
 
   def rotateRight(): Unit = {
-//
 //    if (currentGameState.currentBlockColor != OCell) {
 //      val newShape = currentGameState.currentBlockShape.map { point =>
 //        val newX = -point.y + currentGameState.anchorPoint
@@ -112,6 +119,13 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 //      }
 //      currentGameState = currentGameState.copy(currentBlockShape = newShape)
 //    }
+    if (currentGameState.currentBlockColor == OCell) {
+
+    } else if (currentGameState.currentBlockColor == ICell) {
+
+    } else {
+
+    }
   }
 
   def moveLeft(): Unit = {
@@ -139,7 +153,6 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     highestBlockHeight + 1 < gridDims.height && !collidesWithExistingBlocks
   }
 
-
   def moveDown(): Unit = {
     if (canMoveDown(currentGameState)) {
       currentGameState = currentGameState.copy(currentBlockShape = currentGameState.currentBlockShape.map(point => point.copy(y = point.y + 1)))
@@ -151,7 +164,6 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     }
   }
 
-
   def doHardDrop(): Unit = {
     while (canMoveDown(currentGameState)) {
       moveDown()
@@ -159,8 +171,6 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   }
 
   def isGameOver: Boolean = currentGameState.gameIsOver
-
-  //def getAllBlocks: List[Tetromino] = currentGameState.currentBlock +: currentGameState.tetrisBlocks
 
   def getCellType(p: Point): CellType = {
 

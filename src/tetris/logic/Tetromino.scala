@@ -7,6 +7,10 @@ abstract class Tetromino() {
 
 class ICellBlock(anchorPoint: Int) extends Tetromino {
 
+  def initialPositions (currentGameState: GameState): List[Point] = {
+    List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint + 1, 1))
+  }
+
   override def rotateLeft(): Unit = {
 
   }
@@ -18,6 +22,10 @@ class ICellBlock(anchorPoint: Int) extends Tetromino {
 }
 
 class JCellBlock(anchorPoint: Int) extends Tetromino {
+
+  def initialPositions(currentGameState: GameState): List[Point] = {
+    List(Point(currentGameState.anchorPoint - 2, 0), Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1))
+  }
 
   override def rotateLeft(): Unit = {
 
@@ -31,6 +39,10 @@ class JCellBlock(anchorPoint: Int) extends Tetromino {
 
 class LCellBlock(anchorPoint: Int) extends Tetromino {
 
+  def initialPositions(currentGameState: GameState): List[Point] = {
+    List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint, 0))
+  }
+
   override def rotateLeft(): Unit = {
 
   }
@@ -41,6 +53,10 @@ class LCellBlock(anchorPoint: Int) extends Tetromino {
 }
 
 class OCellBlock(anchorPoint: Int) extends Tetromino {
+
+  def initialPositions(currentGameState: GameState): List[Point] = {
+    List(Point(currentGameState.anchorPoint - 1, 0), Point(currentGameState.anchorPoint, 0), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1))
+  }
 
   override def rotateLeft(): Unit = {
 
@@ -53,6 +69,10 @@ class OCellBlock(anchorPoint: Int) extends Tetromino {
 
 class SCellBlock(anchorPoint: Int) extends Tetromino {
 
+  def initialPositions(currentGameState: GameState): List[Point] = {
+    List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint - 1, 0), Point(currentGameState.anchorPoint, 0))
+  }
+
   override def rotateLeft(): Unit = {
 
   }
@@ -64,6 +84,10 @@ class SCellBlock(anchorPoint: Int) extends Tetromino {
 
 class TCellBlock(anchorPoint: Int) extends Tetromino {
 
+  def initialPositions(currentGameState: GameState): List[Point] = {
+    List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint - 1, 0))
+  }
+
   override def rotateLeft(): Unit = {
 
   }
@@ -74,6 +98,10 @@ class TCellBlock(anchorPoint: Int) extends Tetromino {
 }
 
 class ZCellBlock(anchorPoint: Int) extends Tetromino {
+
+  def initialPositions(currentGameState: GameState): List[Point] = {
+    List(Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint - 1, 0), Point(currentGameState.anchorPoint - 2, 0))
+  }
 
   override def rotateLeft(): Unit = {
 
@@ -105,7 +133,7 @@ class ZCellBlock(anchorPoint: Int) extends Tetromino {
 //}
 //
 //class OCenteredTetrominos extends Tetromino {
-//  override def rotateLeft (currentShape: List[Point], anchorPoint: Int): List[Point] = {
+//  override def rotateLeft(currentShape: List[Point], anchorPoint: Int): List[Point] = {
 //    currentShape
 //  }
 //
@@ -116,11 +144,11 @@ class ZCellBlock(anchorPoint: Int) extends Tetromino {
 //
 //class ICenteredTetrominos extends Tetromino {
 //  override def rotateLeft (currentShape: List[Point], anchorPoint: Int): List[Point] = {
-//    // IBlock rotation functionality
+//    currentShape
 //  }
 //
 //  override def rotateRight(currentShape: List[Point], anchorPoint: Int): List[Point] = {
-//    // IBlock rotation functionality
+//    currentShape
 //  }
 //}
 
