@@ -9,7 +9,7 @@ case class GameState (
                      currentBlock: Tetromino,
                      currentBlockShape: List[Point],
                      currentBlockType: CellType,
-                     anchorPoint: Int,
+                     anchorPosition: Point,
                      tetrisBlocks: List[(CellType, List[Point])]
                      )
 
@@ -26,16 +26,20 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     currentBlock = null,
     currentBlockShape = List(),
     currentBlockType = Empty,
-    anchorPoint = 0,
+    anchorPosition = Point(0, 0),
     tetrisBlocks = List()
   )
 
   private val blockTypes: List[CellType] = List(ICell, JCell, LCell, OCell, SCell, TCell, ZCell)
 
   if (gridDims.width % 2 == 0) {
-    currentGameState = currentGameState.copy(anchorPoint = gridDims.width / 2)
+    currentGameState = currentGameState.copy(
+      anchorPosition = Point(gridDims.width / 2, 1)
+    )
   } else {
-    currentGameState = currentGameState.copy(anchorPoint = (gridDims.width / 2) + 1)
+    currentGameState = currentGameState.copy(
+      anchorPosition = Point((gridDims.width / 2) + 1, 1)
+    )
   }
 
   def createBlock(): Unit = {

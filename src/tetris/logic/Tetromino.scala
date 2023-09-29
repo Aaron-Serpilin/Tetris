@@ -9,13 +9,13 @@ abstract class Tetromino() {
 class ICellBlock(currentGameState: GameState) extends Tetromino {
 
   override def initialPositions (): List[Point] = {
-    List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint + 1, 1))
+    List(Point(currentGameState.anchorPosition.x - 2, 1), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1), Point(currentGameState.anchorPosition.x + 1, 1))
   }
 
   override def rotateLeft(): List[Point] = {
     val newShape = currentGameState.currentBlockShape.map { point =>
-      val newX = point.y + currentGameState.anchorPoint
-      val newY = -point.x + currentGameState.anchorPoint + 1
+      val newX = point.y + currentGameState.anchorPosition.x
+      val newY = -point.x + 1 + currentGameState.anchorPosition.x
       Point(newX, newY)
     }
     newShape
@@ -23,8 +23,8 @@ class ICellBlock(currentGameState: GameState) extends Tetromino {
 
   override def rotateRight(): List[Point] = {
     val newShape = currentGameState.currentBlockShape.map { point =>
-      val newX = -point.y + currentGameState.anchorPoint
-      val newY = point.x - currentGameState.anchorPoint + 2
+      val newX = -point.y + 1 + currentGameState.anchorPosition.x
+      val newY = point.x - currentGameState.anchorPosition.x
       Point(newX, newY)
     }
     newShape
@@ -35,7 +35,7 @@ class ICellBlock(currentGameState: GameState) extends Tetromino {
 class OCellBlock(currentGameState: GameState) extends Tetromino {
 
   override def initialPositions(): List[Point] = {
-    List(Point(currentGameState.anchorPoint - 1, 0), Point(currentGameState.anchorPoint, 0), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1))
+    List(Point(currentGameState.anchorPosition.x - 1, 0), Point(currentGameState.anchorPosition.x, 0), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1))
   }
 
   override def rotateLeft(): List[Point] = {
@@ -51,18 +51,18 @@ class standardBlock (currentGameState: GameState, blockType: CellType) extends T
 
   override def initialPositions (): List[Point] = {
     blockType match {
-      case JCell => List(Point(currentGameState.anchorPoint - 2, 0), Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1))
-      case LCell => List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint, 0))
-      case SCell => List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint - 1, 0), Point(currentGameState.anchorPoint, 0))
-      case TCell => List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint - 1, 0))
-      case ZCell => List(Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint - 1, 0), Point(currentGameState.anchorPoint - 2, 0))
+      case JCell => List(Point(currentGameState.anchorPosition.x - 2, 0), Point(currentGameState.anchorPosition.x - 2, 1), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1))
+      case LCell => List(Point(currentGameState.anchorPosition.x - 2, 1), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1), Point(currentGameState.anchorPosition.x, 0))
+      case SCell => List(Point(currentGameState.anchorPosition.x - 2, 1), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x - 1, 0), Point(currentGameState.anchorPosition.x, 0))
+      case TCell => List(Point(currentGameState.anchorPosition.x - 2, 1), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1), Point(currentGameState.anchorPosition.x - 1, 0))
+      case ZCell => List(Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1), Point(currentGameState.anchorPosition.x - 1, 0), Point(currentGameState.anchorPosition.x - 2, 0))
     }
   }
 
   override def rotateLeft(): List[Point] = {
     val newShape = currentGameState.currentBlockShape.map { point =>
-      val newX = -point.y
-      val newY = point.x
+      val newX = point.y
+      val newY = -point.x
       Point(newX, newY)
     }
     newShape
@@ -70,8 +70,8 @@ class standardBlock (currentGameState: GameState, blockType: CellType) extends T
 
   override def rotateRight(): List[Point] = {
     val newShape = currentGameState.currentBlockShape.map { point =>
-      val newX = point.y
-      val newY = -point.x
+      val newX = -point.y
+      val newY = point.x
       Point(newX, newY)
     }
     newShape
