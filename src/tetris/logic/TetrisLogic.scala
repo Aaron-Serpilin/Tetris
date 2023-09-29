@@ -34,11 +34,8 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
   private val blockTypes: List[CellType] = List(ICell, JCell, LCell, OCell, SCell, TCell, ZCell)
 
-  if (gridDims.width % 2 == 0) {
-    currentGameState = currentGameState.copy(anchorPosition = Point((gridDims.width / 2) - 1, 1))
-  } else {
-    currentGameState = currentGameState.copy(anchorPosition = Point(gridDims.width / 2, 1))
-  }
+  if (gridDims.width % 2 == 0) currentGameState = currentGameState.copy(anchorPosition = Point((gridDims.width / 2) - 1, 1))
+  else currentGameState = currentGameState.copy(anchorPosition = Point(gridDims.width / 2, 1))
 
   def relativeToAbsolutePositions (blockShape: List[Point]): List[Point] = {
     val adaptedShape = blockShape.map{point =>
@@ -48,129 +45,50 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     }
     adaptedShape
   }
-  
+
+  def initializeTetromino(tetrominoType: CellType): Unit = {
+    val tetromino = tetrominoType match {
+      case ICell => new ICellBlock(currentGameState)
+      case OCell => new OCellBlock(currentGameState)
+      case JCell | LCell | SCell | TCell | ZCell => new standardBlock(currentGameState, tetrominoType)
+    }
+
+    val relativePositions = tetromino.initialPositions()
+    val absolutePositions = relativeToAbsolutePositions(relativePositions)
+
+    currentGameState = currentGameState.copy(
+      currentBlock = tetromino,
+      relativeBlockShape = relativePositions,
+      absoluteBlockShape = absolutePositions,
+      currentBlockType = tetrominoType
+    )
+  }
+
   def createBlock(): Unit = {
     val randomShapeIndex = randomGen.randomInt(blockTypes.length)
     val randomShape = blockTypes(randomShapeIndex)
-
-    randomShape match {
-      case ICell => currentGameState = currentGameState.copy(
-          currentBlock = new ICellBlock(currentGameState),
-          relativeBlockShape = new ICellBlock(currentGameState).initialPositions(),
-          absoluteBlockShape = relativeToAbsolutePositions(new ICellBlock(currentGameState).initialPositions()),
-          currentBlockType = ICell
-        )
-      case OCell =>
-        currentGameState = currentGameState.copy(
-          currentBlock = new OCellBlock(currentGameState),
-          relativeBlockShape = new OCellBlock(currentGameState).initialPositions(),
-          absoluteBlockShape = relativeToAbsolutePositions(new OCellBlock(currentGameState).initialPositions()),
-          currentBlockType = OCell
-        )
-      case JCell =>
-        currentGameState = currentGameState.copy(
-          currentBlock = new standardBlock(currentGameState, JCell),
-          relativeBlockShape = new standardBlock(currentGameState, JCell).initialPositions(),
-          absoluteBlockShape = relativeToAbsolutePositions(new standardBlock(currentGameState, JCell).initialPositions()),
-          currentBlockType = JCell
-        )
-      case LCell =>
-        currentGameState = currentGameState.copy(
-          currentBlock = new standardBlock(currentGameState, LCell),
-          relativeBlockShape = new standardBlock(currentGameState, LCell).initialPositions(),
-          absoluteBlockShape = relativeToAbsolutePositions(new standardBlock(currentGameState, LCell).initialPositions()),
-          currentBlockType = LCell
-        )
-      case SCell =>
-        currentGameState = currentGameState.copy(
-          currentBlock = new standardBlock(currentGameState, SCell),
-          relativeBlockShape = new standardBlock(currentGameState, SCell).initialPositions(),
-          absoluteBlockShape = relativeToAbsolutePositions(new standardBlock(currentGameState, SCell).initialPositions()),
-          currentBlockType = SCell
-        )
-      case TCell =>
-        currentGameState = currentGameState.copy(
-          currentBlock = new standardBlock(currentGameState, TCell),
-          relativeBlockShape = new standardBlock(currentGameState, TCell).initialPositions(),
-          absoluteBlockShape = relativeToAbsolutePositions(new standardBlock(currentGameState, TCell).initialPositions()),
-          currentBlockType = TCell
-        )
-      case ZCell =>
-        currentGameState = currentGameState.copy(
-          currentBlock = new standardBlock(currentGameState, ZCell),
-          relativeBlockShape = new standardBlock(currentGameState, ZCell).initialPositions(),
-          absoluteBlockShape = relativeToAbsolutePositions(new standardBlock(currentGameState, ZCell).initialPositions()),
-          currentBlockType = ZCell
-        )
-    }
-
+    initializeTetromino(randomShape)
   }
 
-  def rotateLeft(): Unit = {
-
-    currentGameState.currentBlockType match {
-      case OCell =>
-        val currentTetromino = new OCellBlock(currentGameState)
-        val relativeRotatedTetromino = currentTetromino.rotateLeft()
-        val rotatedTetromino = relativeToAbsolutePositions(currentTetromino.rotateLeft())
-        currentGameState = currentGameState.copy(
-          relativeBlockShape = relativeRotatedTetromino,
-          absoluteBlockShape = rotatedTetromino
-        )
-
-      case ICell =>
-        val currentTetromino = new ICellBlock(currentGameState)
-        val relativeRotatedTetromino = currentTetromino.rotateLeft()
-        val rotatedTetromino = relativeToAbsolutePositions(currentTetromino.rotateLeft())
-        currentGameState = currentGameState.copy(
-          relativeBlockShape = relativeRotatedTetromino,
-          absoluteBlockShape = rotatedTetromino
-        )
-
-      case default =>
-        val currentTetromino = new standardBlock(currentGameState, currentGameState.currentBlockType)
-        val relativeRotatedTetromino = currentTetromino.rotateLeft()
-        val rotatedTetromino = relativeToAbsolutePositions(currentTetromino.rotateLeft())
-        currentGameState = currentGameState.copy(
-          relativeBlockShape = relativeRotatedTetromino,
-          absoluteBlockShape = rotatedTetromino
-        )
-    }
-  }
-
-
-  def rotateRight(): Unit = {
-
-    currentGameState.currentBlockType match {
-      case OCell =>
-        val currentTetromino = new OCellBlock(currentGameState)
-        val relativeRotatedTetromino = currentTetromino.rotateRight()
-        val rotatedTetromino = relativeToAbsolutePositions(currentTetromino.rotateRight())
-        currentGameState = currentGameState.copy(
-          relativeBlockShape = relativeRotatedTetromino,
-          absoluteBlockShape = rotatedTetromino
-        )
-
-      case ICell =>
-        val currentTetromino = new ICellBlock(currentGameState)
-        val relativeRotatedTetromino = currentTetromino.rotateRight()
-        val rotatedTetromino = relativeToAbsolutePositions(relativeRotatedTetromino)
-        currentGameState = currentGameState.copy(
-          relativeBlockShape = relativeRotatedTetromino,
-          absoluteBlockShape = rotatedTetromino
-        )
-
-      case default =>
-        val currentTetromino = new standardBlock(currentGameState, currentGameState.currentBlockType)
-        val relativeRotatedTetromino = currentTetromino.rotateRight()
-        val rotatedTetromino = relativeToAbsolutePositions(currentTetromino.rotateRight())
-        currentGameState = currentGameState.copy(
-          relativeBlockShape = relativeRotatedTetromino,
-          absoluteBlockShape = rotatedTetromino
-        )
+  def rotate(direction: String): Unit = {
+    val currentTetromino = currentGameState.currentBlockType match {
+      case OCell => new OCellBlock(currentGameState)
+      case ICell => new ICellBlock(currentGameState)
+      case _ => new standardBlock(currentGameState, currentGameState.currentBlockType)
     }
 
+    val relativeRotatedTetromino = if (direction == "Left") currentTetromino.rotateLeft() else currentTetromino.rotateRight()
+    val rotatedTetromino = relativeToAbsolutePositions(relativeRotatedTetromino)
+
+    currentGameState = currentGameState.copy(
+      relativeBlockShape = relativeRotatedTetromino,
+      absoluteBlockShape = rotatedTetromino
+    )
   }
+
+  def rotateLeft(): Unit = {rotate("Left")}
+
+  def rotateRight(): Unit = {rotate("Right")}
 
   def moveLeft(): Unit = {
     val lowestBlockWidth = currentGameState.absoluteBlockShape.map(_.x).min // Returns the x-coordinate of the block with the lowest value
@@ -212,67 +130,48 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     } else {
       val newTetrisBlock = (currentGameState.currentBlockType, currentGameState.absoluteBlockShape)
       val newTetrisBlocks = newTetrisBlock :: currentGameState.tetrisBlocks
-      currentGameState = currentGameState.copy(
-        tetrisBlocks = newTetrisBlocks
-      )
+      currentGameState = currentGameState.copy(tetrisBlocks = newTetrisBlocks)
 
-      if (gridDims.width % 2 == 0) {
-        currentGameState = currentGameState.copy(anchorPosition = Point(gridDims.width / 2, 1))
-      } else {
-        currentGameState = currentGameState.copy(anchorPosition = Point((gridDims.width / 2) + 1, 1))
-      }
+      if (gridDims.width % 2 == 0) currentGameState = currentGameState.copy(anchorPosition = Point(gridDims.width / 2, 1))
+      else currentGameState = currentGameState.copy(anchorPosition = Point((gridDims.width / 2) + 1, 1))
 
       createBlock()
     }
   }
 
   def doHardDrop(): Unit = {
-    while (canMoveDown(currentGameState)) {
-      moveDown()
-    }
+    while (canMoveDown(currentGameState)) {moveDown()}
   }
 
   def isGameOver: Boolean = currentGameState.gameIsOver
 
   def getCellType(p: Point): CellType = {
 
-    if (currentGameState.currentBlock == null) {
-      createBlock()
-    }
-
-    if (currentGameState.absoluteBlockShape.contains(p)) {
-      return currentGameState.currentBlockType
-    }
+    if (currentGameState.currentBlock == null) createBlock()
+    if (currentGameState.absoluteBlockShape.contains(p)) return currentGameState.currentBlockType
 
     for (previousBlocks <- currentGameState.tetrisBlocks) {
       val previousBlockColor = previousBlocks._1
       val previousBlockShape = previousBlocks._2
-      if (previousBlockShape.contains(p)) {
-        return previousBlockColor
-      }
+      if (previousBlockShape.contains(p)) return previousBlockColor
     }
 
     Empty
   }
-
 }
 
 object TetrisLogic {
-
   val FramesPerSecond: Int = 1
   val DrawSizeFactor = 1.0
-
   def makeEmptyBoard(gridDims: Dimensions): Seq[Seq[CellType]] = {
     val emptyLine = Seq.fill(gridDims.width)(Empty)
     Seq.fill(gridDims.height)(emptyLine)
   }
-
   val DefaultWidth: Int = 10
   val NrTopInvisibleLines: Int = 4
   val DefaultVisibleHeight: Int = 20
   val DefaultHeight: Int = DefaultVisibleHeight + NrTopInvisibleLines
   val DefaultDims: Dimensions = Dimensions(width = DefaultWidth, height = DefaultHeight)
-
   def apply(): TetrisLogic = new TetrisLogic(new ScalaRandomGen(),
     DefaultDims,
     makeEmptyBoard(DefaultDims))
