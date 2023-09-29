@@ -86,9 +86,9 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     )
   }
 
-  def rotateLeft(): Unit = {rotate("Left")}
+  def rotateLeft(): Unit = rotate("Left")
 
-  def rotateRight(): Unit = {rotate("Right")}
+  def rotateRight(): Unit = rotate("Right")
 
   def moveLeft(): Unit = {
     val lowestBlockWidth = currentGameState.absoluteBlockShape.map(_.x).min // Returns the x-coordinate of the block with the lowest value
@@ -110,11 +110,11 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     }
   }
 
-  def canMoveDown(gameState: GameState): Boolean = {
-    val highestBlockHeight = gameState.absoluteBlockShape.map(_.y).max // Returns the y-coordinate of the block with the highest value
-    val potentialNewPositions = gameState.absoluteBlockShape.map(point => point.copy(y = point.y + 1)) // Check if moving down would collide with existing blocks
+  def canMoveDown(): Boolean = {
+    val highestBlockHeight = currentGameState.absoluteBlockShape.map(_.y).max // Returns the y-coordinate of the block with the highest value
+    val potentialNewPositions = currentGameState.absoluteBlockShape.map(point => point.copy(y = point.y + 1)) // Check if moving down would collide with existing blocks
     val collidesWithExistingBlocks = potentialNewPositions.exists(newPosition =>
-      gameState.tetrisBlocks.exists(existingBlock =>
+      currentGameState.tetrisBlocks.exists(existingBlock =>
         existingBlock._2.contains(newPosition)
       )
     )
@@ -122,7 +122,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   }
 
   def moveDown(): Unit = {
-    if (canMoveDown(currentGameState)) {
+    if (canMoveDown()) {
       currentGameState = currentGameState.copy(
         absoluteBlockShape = currentGameState.absoluteBlockShape.map(point => point.copy(y = point.y + 1)),
         anchorPosition = Point(currentGameState.anchorPosition.x, currentGameState.anchorPosition.y + 1)
@@ -140,7 +140,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   }
 
   def doHardDrop(): Unit = {
-    while (canMoveDown(currentGameState)) {moveDown()}
+    while (canMoveDown()) {moveDown()}
   }
 
   def isGameOver: Boolean = currentGameState.gameIsOver
