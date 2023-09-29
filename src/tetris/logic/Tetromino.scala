@@ -13,18 +13,18 @@ class ICellBlock(currentGameState: GameState) extends Tetromino {
   }
 
   override def rotateLeft(): List[Point] = {
-    val newShape = currentGameState.currentBlockShape.map { point =>
-      val newX = point.y + currentGameState.anchorPosition.x
-      val newY = -point.x + 1 + currentGameState.anchorPosition.x
+    val newShape = currentGameState.relativeBlockShape.map { point =>
+      val newX = point.y
+      val newY = -point.x + 1
       Point(newX, newY)
     }
     newShape
   }
 
   override def rotateRight(): List[Point] = {
-    val newShape = currentGameState.currentBlockShape.map { point =>
-      val newX = -point.y + 1 + currentGameState.anchorPosition.x
-      val newY = point.x - currentGameState.anchorPosition.x
+    val newShape = currentGameState.relativeBlockShape.map { point =>
+      val newX = -point.y + 1
+      val newY = point.x
       Point(newX, newY)
     }
     newShape
@@ -39,11 +39,11 @@ class OCellBlock(currentGameState: GameState) extends Tetromino {
   }
 
   override def rotateLeft(): List[Point] = {
-    currentGameState.currentBlockShape
+    currentGameState.relativeBlockShape
   }
 
   override def rotateRight(): List[Point] = {
-    currentGameState.currentBlockShape
+    currentGameState.relativeBlockShape
   }
 }
 
@@ -60,7 +60,7 @@ class standardBlock (currentGameState: GameState, blockType: CellType) extends T
   }
 
   override def rotateLeft(): List[Point] = {
-    val newShape = currentGameState.currentBlockShape.map { point =>
+    val newShape = currentGameState.relativeBlockShape.map { point =>
       val newX = point.y
       val newY = -point.x
       Point(newX, newY)
@@ -69,7 +69,7 @@ class standardBlock (currentGameState: GameState, blockType: CellType) extends T
   }
 
   override def rotateRight(): List[Point] = {
-    val newShape = currentGameState.currentBlockShape.map { point =>
+    val newShape = currentGameState.relativeBlockShape.map { point =>
       val newX = -point.y
       val newY = point.x
       Point(newX, newY)
