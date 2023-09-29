@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tetris.RotateBackToStartTests" tests="4" skipped="0" failures="2" errors="0" timestamp="2023-09-29T13:41:54" hostname="Jays-MacBook-Pro-2.local" time="0.037">
+<testsuite name="tetris.RotateBackToStartTests" tests="4" skipped="0" failures="2" errors="0" timestamp="2023-09-29T16:17:21" hostname="Jays-MacBook-Pro-2.local" time="0.043">
   <properties/>
-  <testcase name="testRotate360" classname="tetris.RotateBackToStartTests" time="0.007"/>
-  <testcase name="testRotate360CC" classname="tetris.RotateBackToStartTests" time="0.012"/>
+  <testcase name="testRotate360" classname="tetris.RotateBackToStartTests" time="0.009"/>
+  <testcase name="testRotate360CC" classname="tetris.RotateBackToStartTests" time="0.016"/>
   <testcase name="testRotateLeftRight" classname="tetris.RotateBackToStartTests" time="0.005">
-    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: Rotating right and then left gives the original orientation.&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=6, actions=&lt;&gt;&#10;Want | Got ✓&#10;------------&#10;ZZ.  | ZZ.  &#10;.ZZ  | .ZZ  &#10;...  | ...  &#10;&#10;step=1, rand=6, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;..Z  | ..Z  &#10;.ZZ  | ..Z  &#10;.Z.  | ...  &#10;&#10;step=2, rand=6, actions=&lt;RotateLeft&gt;&#10;Want | Got ✓&#10;------------&#10;ZZ.  | ZZ.  &#10;.ZZ  | .ZZ  &#10;...  | ...  &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
+    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: Rotating right and then left gives the original orientation.&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=6, actions=&lt;&gt;&#10;Want | Got ✓&#10;------------&#10;ZZ.  | ZZ.  &#10;.ZZ  | .ZZ  &#10;...  | ...  &#10;&#10;step=1, rand=6, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;..Z  | Z..  &#10;.ZZ  | Z..  &#10;.Z.  | ...  &#10;&#10;step=2, rand=6, actions=&lt;RotateLeft&gt;&#10;Want | Got ✓&#10;------------&#10;ZZ.  | ZZ.  &#10;.ZZ  | .ZZ  &#10;...  | ...  &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
 Hint: Rotating right and then left gives the original orientation.
 --------------------------------------------------------------------------------
 This is what went wrong:
@@ -19,8 +19,8 @@ ZZ.  | ZZ.
 step=1, rand=6, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
-..Z  | ..Z  
-.ZZ  | ..Z  
+..Z  | Z..  
+.ZZ  | Z..  
 .Z.  | ...  
 
 step=2, rand=6, actions=&lt;RotateLeft&gt;
@@ -115,8 +115,8 @@ ZZ.  | ZZ.
 	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
 </failure>
   </testcase>
-  <testcase name="testRotateRightLeft" classname="tetris.RotateBackToStartTests" time="0.011">
-    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: Rotating left and then right gives the original orientation.&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=2, actions=&lt;&gt;&#10;Want | Got ✓&#10;------------&#10;..L  | ..L  &#10;LLL  | LLL  &#10;...  | ...  &#10;&#10;step=1, rand=0, actions=&lt;RotateLeft&gt;&#10;Want | Got ✗&#10;------------&#10;LL.  | ...  &#10;.L.  | .LL  &#10;.L.  | ..L  &#10;&#10;step=2, rand=0, actions=&lt;RotateLeft&gt;&#10;Want | Got ✗&#10;------------&#10;...  | ...  &#10;LLL  | ..L  &#10;L..  | ..L  &#10;&#10;step=3, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;LL.  | ...  &#10;.L.  | .LL  &#10;.L.  | ..L  &#10;&#10;step=4, rand=2, actions=&lt;RotateRight&gt;&#10;Want | Got ✓&#10;------------&#10;..L  | ..L  &#10;LLL  | LLL  &#10;...  | ...  &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
+  <testcase name="testRotateRightLeft" classname="tetris.RotateBackToStartTests" time="0.009">
+    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: Rotating left and then right gives the original orientation.&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=2, actions=&lt;&gt;&#10;Want | Got ✓&#10;------------&#10;..L  | ..L  &#10;LLL  | LLL  &#10;...  | ...  &#10;&#10;step=1, rand=0, actions=&lt;RotateLeft&gt;&#10;Want | Got ✗&#10;------------&#10;LL.  | .L.  &#10;.L.  | ...  &#10;.L.  | ...  &#10;&#10;step=2, rand=0, actions=&lt;RotateLeft&gt;&#10;Want | Got ✗&#10;------------&#10;...  | ...  &#10;LLL  | ...  &#10;L..  | ...  &#10;&#10;step=3, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;LL.  | .L.  &#10;.L.  | ...  &#10;.L.  | ...  &#10;&#10;step=4, rand=2, actions=&lt;RotateRight&gt;&#10;Want | Got ✓&#10;------------&#10;..L  | ..L  &#10;LLL  | LLL  &#10;...  | ...  &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
 Hint: Rotating left and then right gives the original orientation.
 --------------------------------------------------------------------------------
 This is what went wrong:
@@ -131,23 +131,23 @@ LLL  | LLL
 step=1, rand=0, actions=&lt;RotateLeft&gt;
 Want | Got ✗
 ------------
-LL.  | ...  
-.L.  | .LL  
-.L.  | ..L  
+LL.  | .L.  
+.L.  | ...  
+.L.  | ...  
 
 step=2, rand=0, actions=&lt;RotateLeft&gt;
 Want | Got ✗
 ------------
 ...  | ...  
-LLL  | ..L  
-L..  | ..L  
+LLL  | ...  
+L..  | ...  
 
 step=3, rand=0, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
-LL.  | ...  
-.L.  | .LL  
-.L.  | ..L  
+LL.  | .L.  
+.L.  | ...  
+.L.  | ...  
 
 step=4, rand=2, actions=&lt;RotateRight&gt;
 Want | Got ✓

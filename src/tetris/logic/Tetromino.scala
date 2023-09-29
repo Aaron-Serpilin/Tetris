@@ -9,7 +9,7 @@ abstract class Tetromino() {
 class ICellBlock(currentGameState: GameState) extends Tetromino {
 
   override def initialPositions (): List[Point] = {
-    List(Point(currentGameState.anchorPosition.x - 2, 1), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1), Point(currentGameState.anchorPosition.x + 1, 1))
+    List(Point(0, 0), Point(-1, 0), Point(1, 0), Point(2, 0))
   }
 
   override def rotateLeft(): List[Point] = {
@@ -35,7 +35,7 @@ class ICellBlock(currentGameState: GameState) extends Tetromino {
 class OCellBlock(currentGameState: GameState) extends Tetromino {
 
   override def initialPositions(): List[Point] = {
-    List(Point(currentGameState.anchorPosition.x - 1, 0), Point(currentGameState.anchorPosition.x, 0), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1))
+    List(Point(0, 0), Point(0, -1), Point(1, -1), Point(1, 0))
   }
 
   override def rotateLeft(): List[Point] = {
@@ -51,11 +51,11 @@ class standardBlock (currentGameState: GameState, blockType: CellType) extends T
 
   override def initialPositions (): List[Point] = {
     blockType match {
-      case JCell => List(Point(currentGameState.anchorPosition.x - 2, 0), Point(currentGameState.anchorPosition.x - 2, 1), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1))
-      case LCell => List(Point(currentGameState.anchorPosition.x - 2, 1), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1), Point(currentGameState.anchorPosition.x, 0))
-      case SCell => List(Point(currentGameState.anchorPosition.x - 2, 1), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x - 1, 0), Point(currentGameState.anchorPosition.x, 0))
-      case TCell => List(Point(currentGameState.anchorPosition.x - 2, 1), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1), Point(currentGameState.anchorPosition.x - 1, 0))
-      case ZCell => List(Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1), Point(currentGameState.anchorPosition.x - 1, 0), Point(currentGameState.anchorPosition.x - 2, 0))
+      case JCell => List(Point(0, 0), Point(-1, 0), Point(1, 0), Point(-1, -1))
+      case LCell => List(Point(0, 0), Point(-1, -0), Point(1, 0), Point(1, -1))
+      case SCell => List(Point(0, 0), Point(-1, 0), Point(0, -1), Point(1, -1))
+      case TCell => List(Point(0, 0), Point(-1, 0), Point(1, 0), Point(0, -1))
+      case ZCell => List(Point(0, 0), Point(0, -1), Point(-1, -1), Point(1, 0))
     }
   }
 

@@ -33,13 +33,18 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   private val blockTypes: List[CellType] = List(ICell, JCell, LCell, OCell, SCell, TCell, ZCell)
 
   if (gridDims.width % 2 == 0) {
-    currentGameState = currentGameState.copy(
-      anchorPosition = Point(gridDims.width / 2, 1)
-    )
+    currentGameState = currentGameState.copy(anchorPosition = Point((gridDims.width / 2) - 1, 1))
   } else {
-    currentGameState = currentGameState.copy(
-      anchorPosition = Point((gridDims.width / 2) + 1, 1)
-    )
+    currentGameState = currentGameState.copy(anchorPosition = Point(gridDims.width / 2, 1))
+  }
+
+  def relativeToAbsolutePositions (blockShape: List[Point]): List[Point] = {
+    val adaptedShape = blockShape.map{point =>
+      val absoluteX = point.x + currentGameState.anchorPosition.x
+      val absoluteY = point.y + currentGameState.anchorPosition.y
+      Point(absoluteX, absoluteY)
+    }
+    adaptedShape
   }
 
   def createBlock(): Unit = {
@@ -49,43 +54,43 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     randomShape match {
       case ICell => currentGameState = currentGameState.copy(
           currentBlock = new ICellBlock(currentGameState),
-          currentBlockShape = new ICellBlock(currentGameState).initialPositions(),
+          currentBlockShape = relativeToAbsolutePositions(new ICellBlock(currentGameState).initialPositions()),
           currentBlockType = ICell
         )
       case OCell =>
         currentGameState = currentGameState.copy(
           currentBlock = new OCellBlock(currentGameState),
-          currentBlockShape = new OCellBlock(currentGameState).initialPositions(),
+          currentBlockShape = relativeToAbsolutePositions(new OCellBlock(currentGameState).initialPositions()),
           currentBlockType = OCell
         )
       case JCell =>
         currentGameState = currentGameState.copy(
           currentBlock = new standardBlock(currentGameState, JCell),
-          currentBlockShape = new standardBlock(currentGameState, JCell).initialPositions(),
+          currentBlockShape = relativeToAbsolutePositions(new standardBlock(currentGameState, JCell).initialPositions()),
           currentBlockType = JCell
         )
       case LCell =>
         currentGameState = currentGameState.copy(
           currentBlock = new standardBlock(currentGameState, LCell),
-          currentBlockShape = new standardBlock(currentGameState, LCell).initialPositions(),
+          currentBlockShape = relativeToAbsolutePositions(new standardBlock(currentGameState, LCell).initialPositions()),
           currentBlockType = LCell
         )
       case SCell =>
         currentGameState = currentGameState.copy(
           currentBlock = new standardBlock(currentGameState, SCell),
-          currentBlockShape = new standardBlock(currentGameState, SCell).initialPositions(),
+          currentBlockShape = relativeToAbsolutePositions(new standardBlock(currentGameState, SCell).initialPositions()),
           currentBlockType = SCell
         )
       case TCell =>
         currentGameState = currentGameState.copy(
           currentBlock = new standardBlock(currentGameState, TCell),
-          currentBlockShape = new standardBlock(currentGameState, TCell).initialPositions(),
+          currentBlockShape = relativeToAbsolutePositions(new standardBlock(currentGameState, TCell).initialPositions()),
           currentBlockType = TCell
         )
       case ZCell =>
         currentGameState = currentGameState.copy(
           currentBlock = new standardBlock(currentGameState, ZCell),
-          currentBlockShape = new standardBlock(currentGameState, ZCell).initialPositions(),
+          currentBlockShape = relativeToAbsolutePositions(new standardBlock(currentGameState, ZCell).initialPositions()),
           currentBlockType = ZCell
         )
     }
@@ -136,14 +141,20 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   def moveLeft(): Unit = {
     val lowestBlockWidth = currentGameState.currentBlockShape.map(_.x).min // Returns the x-coordinate of the block with the lowest value
     if (lowestBlockWidth > 0) {
-      currentGameState = currentGameState.copy(currentBlockShape = currentGameState.currentBlockShape.map(point => point.copy(x = point.x - 1)))
+      currentGameState = currentGameState.copy(
+        currentBlockShape = currentGameState.currentBlockShape.map(point => point.copy(x = point.x - 1)),
+        anchorPosition = Point(currentGameState.anchorPosition.x - 1, currentGameState.anchorPosition.y)
+      )
     }
   }
 
   def moveRight(): Unit = {
     val highestBlockWidth = currentGameState.currentBlockShape.map(_.x).max // Returns the x-coordinate of the block with the highest value
     if (highestBlockWidth + 1 < gridDims.width) {
-      currentGameState = currentGameState.copy(currentBlockShape = currentGameState.currentBlockShape.map(point => point.copy(x = point.x + 1)))
+      currentGameState = currentGameState.copy(
+        currentBlockShape = currentGameState.currentBlockShape.map(point => point.copy(x = point.x + 1)),
+        anchorPosition = Point(currentGameState.anchorPosition.x + 1, currentGameState.anchorPosition.y)
+      )
     }
   }
 
@@ -160,11 +171,23 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
   def moveDown(): Unit = {
     if (canMoveDown(currentGameState)) {
-      currentGameState = currentGameState.copy(currentBlockShape = currentGameState.currentBlockShape.map(point => point.copy(y = point.y + 1)))
+      currentGameState = currentGameState.copy(
+        currentBlockShape = currentGameState.currentBlockShape.map(point => point.copy(y = point.y + 1)),
+        anchorPosition = Point(currentGameState.anchorPosition.x, currentGameState.anchorPosition.y + 1)
+      )
     } else {
       val newTetrisBlock = (currentGameState.currentBlockType, currentGameState.currentBlockShape)
       val newTetrisBlocks = newTetrisBlock :: currentGameState.tetrisBlocks
-      currentGameState = currentGameState.copy(tetrisBlocks = newTetrisBlocks)
+      currentGameState = currentGameState.copy(
+        tetrisBlocks = newTetrisBlocks
+      )
+
+      if (gridDims.width % 2 == 0) {
+        currentGameState = currentGameState.copy(anchorPosition = Point(gridDims.width / 2, 1))
+      } else {
+        currentGameState = currentGameState.copy(anchorPosition = Point((gridDims.width / 2) + 1, 1))
+      }
+
       createBlock()
     }
   }
@@ -220,3 +243,13 @@ object TetrisLogic {
     DefaultDims,
     makeEmptyBoard(DefaultDims))
 }
+
+//override def initialPositions(): List[Point] = {
+//  blockType match {
+//    case JCell => List(Point(currentGameState.anchorPosition.x - 2, 0), Point(currentGameState.anchorPosition.x - 2, 1), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1))
+//    case LCell => List(Point(currentGameState.anchorPosition.x - 2, 1), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1), Point(currentGameState.anchorPosition.x, 0))
+//    case SCell => List(Point(currentGameState.anchorPosition.x - 2, 1), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x - 1, 0), Point(currentGameState.anchorPosition.x, 0))
+//    case TCell => List(Point(currentGameState.anchorPosition.x - 2, 1), Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1), Point(currentGameState.anchorPosition.x - 1, 0))
+//    case ZCell => List(Point(currentGameState.anchorPosition.x - 1, 1), Point(currentGameState.anchorPosition.x, 1), Point(currentGameState.anchorPosition.x - 1, 0), Point(currentGameState.anchorPosition.x - 2, 0))
+//  }
+//}
