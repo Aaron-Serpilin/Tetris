@@ -1,44 +1,55 @@
 package tetris.logic
 
 abstract class Tetromino() {
-  def rotateLeft(): Unit = {}
-  def rotateRight(): Unit = {}
+  def initialPositions(): List[Point]
+  def rotateLeft(): List[Point]
+  def rotateRight(): List[Point]
 }
 
-class ICellBlock(anchorPoint: Int) extends Tetromino {
+class ICellBlock(currentGameState: GameState) extends Tetromino {
 
-  def initialPositions (currentGameState: GameState): List[Point] = {
+  override def initialPositions (): List[Point] = {
     List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint + 1, 1))
   }
 
-  override def rotateLeft(): Unit = {
-
+  override def rotateLeft(): List[Point] = {
+    val newShape = currentGameState.currentBlockShape.map { point =>
+      val newX = point.y + currentGameState.anchorPoint
+      val newY = -point.x + currentGameState.anchorPoint + 1
+      Point(newX, newY)
+    }
+    newShape
   }
 
-  override def rotateRight(): Unit = {
-
+  override def rotateRight(): List[Point] = {
+    val newShape = currentGameState.currentBlockShape.map { point =>
+      val newX = -point.y + currentGameState.anchorPoint
+      val newY = point.x - currentGameState.anchorPoint + 2
+      Point(newX, newY)
+    }
+    newShape
   }
 
 }
 
-class OCellBlock(anchorPoint: Int) extends Tetromino {
+class OCellBlock(currentGameState: GameState) extends Tetromino {
 
-  def initialPositions(currentGameState: GameState): List[Point] = {
+  override def initialPositions(): List[Point] = {
     List(Point(currentGameState.anchorPoint - 1, 0), Point(currentGameState.anchorPoint, 0), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1))
   }
 
-  override def rotateLeft(): Unit = {
-
+  override def rotateLeft(): List[Point] = {
+    currentGameState.currentBlockShape
   }
 
-  override def rotateRight(): Unit = {
-
+  override def rotateRight(): List[Point] = {
+    currentGameState.currentBlockShape
   }
 }
 
-class standardBlock (anchorPoint: Int) extends Tetromino {
+class standardBlock (currentGameState: GameState, blockType: CellType) extends Tetromino {
 
-  def initialPositions (blockType: CellType, currentGameState: GameState): List[Point] = {
+  override def initialPositions (): List[Point] = {
     blockType match {
       case JCell => List(Point(currentGameState.anchorPoint - 2, 0), Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1))
       case LCell => List(Point(currentGameState.anchorPoint - 2, 1), Point(currentGameState.anchorPoint - 1, 1), Point(currentGameState.anchorPoint, 1), Point(currentGameState.anchorPoint, 0))
@@ -48,55 +59,22 @@ class standardBlock (anchorPoint: Int) extends Tetromino {
     }
   }
 
-  override def rotateLeft(): Unit = {
-
+  override def rotateLeft(): List[Point] = {
+    val newShape = currentGameState.currentBlockShape.map { point =>
+      val newX = -point.y
+      val newY = point.x
+      Point(newX, newY)
+    }
+    newShape
   }
 
-  override def rotateRight(): Unit = {
-
+  override def rotateRight(): List[Point] = {
+    val newShape = currentGameState.currentBlockShape.map { point =>
+      val newX = point.y
+      val newY = -point.x
+      Point(newX, newY)
+    }
+    newShape
   }
 
 }
-
-
-//class centeredTetrominos extends Tetromino {
-//  override def rotateLeft (currentShape: List[Point], anchorPoint: Int): List[Point] = {
-//    val newShape = currentShape.map { point =>
-//      val newX = point.y + anchorPoint
-//      val newY = -point.x + anchorPoint + 1
-//      Point(newX, newY)
-//    }
-//    newShape
-//  }
-//
-//  override def rotateRight (currentShape: List[Point], anchorPoint: Int): List[Point] = {
-//    val newShape = currentShape.map { point =>
-//      val newX = -point.y + anchorPoint
-//      val newY = point.x - anchorPoint + 2
-//      Point(newX, newY)
-//    }
-//    newShape
-//  }
-//}
-//
-//class OCenteredTetrominos extends Tetromino {
-//  override def rotateLeft(currentShape: List[Point], anchorPoint: Int): List[Point] = {
-//    currentShape
-//  }
-//
-//  override def rotateRight(currentShape: List[Point], anchorPoint: Int): List[Point] = {
-//    currentShape
-//  }
-//}
-//
-//class ICenteredTetrominos extends Tetromino {
-//  override def rotateLeft (currentShape: List[Point], anchorPoint: Int): List[Point] = {
-//    currentShape
-//  }
-//
-//  override def rotateRight(currentShape: List[Point], anchorPoint: Int): List[Point] = {
-//    currentShape
-//  }
-//}
-
-
