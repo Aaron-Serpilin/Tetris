@@ -59,7 +59,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
     val isOccupied = absolutePositions.exists(position => // Check if any of the spawning positions are occupied
       currentGameState.tetrisBlocks.exists {
-        case (_, blockPositions) => blockPositions.contains(position)
+        case (_, existingBlockPositions) => existingBlockPositions.contains(position)
       }
     )
 
@@ -72,6 +72,8 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
         absoluteBlockShape = absolutePositions,
         currentBlockType = randomShape
       )
+
+      removeLines()
     }
   }
 
@@ -174,7 +176,35 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     currentGameState = currentGameState.copy(tetrisBlocks = tetrisBlocks)
   }
 
-  private def removeLines(): Unit = {}
+  private def findFullRows(): List[Int] = {
+    var fullRows: List[Int] = List.empty
+
+    for (row <- 0 until gridDims.height) { // Loop through all the rows of the board
+      val rowOccupied = currentGameState.tetrisBlocks.exists { // rowOccupied set to true if there exists any tetris block in the row with the given y-coordinate
+        case (_, blockPositions) => blockPositions.exists(_.y == row)
+      }
+
+      val isFull = rowOccupied && (0 until gridDims.width).forall { column => // Returns true if all the units of rowOccupied are occupied
+        currentGameState.tetrisBlocks.exists {
+          case (_, blockPositions) => blockPositions.contains(Point(column, row))
+        }
+      }
+
+      if (isFull) { // If all units of rowOccupied are full, we add the row index to fullRows
+        fullRows = row :: fullRows
+      }
+    }
+
+    fullRows.reverse // Returns the list in the right order
+  }
+
+
+  private def removeLines(): Unit = {
+
+    val fullRowIndexes = findFullRows()
+    println(s"The fullRowIndexes are ${fullRowIndexes}")
+    
+  }
 
   def getCellType(p: Point): CellType = {
 
