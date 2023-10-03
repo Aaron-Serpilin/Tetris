@@ -83,7 +83,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
       case _ => new standardBlock(currentGameState, currentGameState.currentBlockType)
     }
 
-    val relativeRotatedTetromino = if (direction == "L") currentTetromino.rotateLeft() else currentTetromino.rotateRight()
+    val relativeRotatedTetromino = if (direction == "Left") currentTetromino.rotateLeft() else currentTetromino.rotateRight()
     val rotatedTetromino = relativeToAbsolutePositions(relativeRotatedTetromino)
 
     if (isValidPosition(rotatedTetromino)) {
@@ -95,62 +95,44 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   }
 
 
-  def rotateLeft(): Unit = rotate("L")
+  def rotateLeft(): Unit = rotate("Left")
 
-  def rotateRight(): Unit = rotate("R")
+  def rotateRight(): Unit = rotate("Right")
 
-  def moveLeft(): Unit = {
-    val lowestBlockWidth = currentGameState.absoluteBlockShape.map(_.x).min
-    if (lowestBlockWidth > 0) {
-      val newAbsoluteBlockShape = currentGameState.absoluteBlockShape.map(point => point.copy(x = point.x - 1))
-      val newAnchorPosition = Point(currentGameState.anchorPosition.x - 1, currentGameState.anchorPosition.y)
+  def move(direction: String): Unit = {
+    val (deltaX, deltaY) = direction match {
+      case "Left" => (-1, 0)
+      case "Right" => (1, 0)
+      case "Down" => (0, 1)
+      case _ => (0, 0)
+    }
 
-      if (isValidPosition(newAbsoluteBlockShape)) {
-        currentGameState = currentGameState.copy(
-          absoluteBlockShape = newAbsoluteBlockShape,
-          anchorPosition = newAnchorPosition
-        )
-      }
+    val newAbsoluteBlockShape = currentGameState.absoluteBlockShape.map(point =>
+      Point(point.x + deltaX, point.y + deltaY)
+    )
+
+    val newAnchorPosition = Point(
+      currentGameState.anchorPosition.x + deltaX,
+      currentGameState.anchorPosition.y + deltaY
+    )
+
+    if (isValidPosition(newAbsoluteBlockShape)) {
+      currentGameState = currentGameState.copy(
+        absoluteBlockShape = newAbsoluteBlockShape,
+        anchorPosition = newAnchorPosition
+      )
     }
   }
 
-  def moveRight(): Unit = {
-    val highestBlockWidth = currentGameState.absoluteBlockShape.map(_.x).max
-    if (highestBlockWidth + 1 < gridDims.width) {
-      val newAbsoluteBlockShape = currentGameState.absoluteBlockShape.map(point => point.copy(x = point.x + 1))
-      val newAnchorPosition = Point(currentGameState.anchorPosition.x + 1, currentGameState.anchorPosition.y)
+  def moveLeft(): Unit = move("Left")
 
-      if (isValidPosition(newAbsoluteBlockShape)) {
-        currentGameState = currentGameState.copy(
-          absoluteBlockShape = newAbsoluteBlockShape,
-          anchorPosition = newAnchorPosition
-        )
-      }
-    }
-  }
+  def moveRight(): Unit = move("Right")
+
+  def moveDown(): Unit = move("Down")
 
   def canMoveDown(): Boolean = {
     val potentialNewPositions = currentGameState.absoluteBlockShape.map(point => point.copy(y = point.y + 1))
     isValidPosition(potentialNewPositions)
-  }
-
-  def moveDown(): Unit = {
-    if (canMoveDown()) {
-      currentGameState = currentGameState.copy(
-        absoluteBlockShape = currentGameState.absoluteBlockShape.map(point => point.copy(y = point.y + 1)),
-        anchorPosition = Point(currentGameState.anchorPosition.x, currentGameState.anchorPosition.y + 1)
-      )
-    } else {
-      val newTetrisBlock = (currentGameState.currentBlockType, currentGameState.absoluteBlockShape)
-      val newTetrisBlocks = newTetrisBlock :: currentGameState.tetrisBlocks
-      currentGameState = currentGameState.copy(tetrisBlocks = newTetrisBlocks)
-
-      if (gridDims.width % 2 == 0) currentGameState = currentGameState.copy(anchorPosition = Point(gridDims.width / 2, 1))
-      else currentGameState = currentGameState.copy(anchorPosition = Point((gridDims.width / 2) + 1, 1))
-
-      createBlock()
-    }
-
   }
 
   def doHardDrop(): Unit = {
