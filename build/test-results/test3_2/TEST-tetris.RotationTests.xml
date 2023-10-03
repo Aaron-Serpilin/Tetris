@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tetris.RotationTests" tests="7" skipped="0" failures="0" errors="0" timestamp="2023-10-03T12:34:28" hostname="Jays-MacBook-Pro-2.local" time="0.049">
+<testsuite name="tetris.RotationTests" tests="7" skipped="0" failures="0" errors="0" timestamp="2023-10-03T13:13:42" hostname="Jays-MacBook-Pro-2.local" time="0.052">
   <properties/>
-  <testcase name="testIRotations" classname="tetris.RotationTests" time="0.007"/>
-  <testcase name="testJRotations" classname="tetris.RotationTests" time="0.009"/>
-  <testcase name="testLRotations" classname="tetris.RotationTests" time="0.005"/>
-  <testcase name="testORotations" classname="tetris.RotationTests" time="0.008"/>
-  <testcase name="testSRotations" classname="tetris.RotationTests" time="0.005"/>
-  <testcase name="testTRotations" classname="tetris.RotationTests" time="0.007"/>
+  <testcase name="testIRotations" classname="tetris.RotationTests" time="0.012"/>
+  <testcase name="testJRotations" classname="tetris.RotationTests" time="0.008"/>
+  <testcase name="testLRotations" classname="tetris.RotationTests" time="0.006"/>
+  <testcase name="testORotations" classname="tetris.RotationTests" time="0.007"/>
+  <testcase name="testSRotations" classname="tetris.RotationTests" time="0.006"/>
+  <testcase name="testTRotations" classname="tetris.RotationTests" time="0.006"/>
   <testcase name="testZRotations" classname="tetris.RotationTests" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

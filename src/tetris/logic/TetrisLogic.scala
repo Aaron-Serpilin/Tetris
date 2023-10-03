@@ -34,8 +34,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
   private val blockTypes: List[CellType] = List(ICell, JCell, LCell, OCell, SCell, TCell, ZCell)
 
-  if (gridDims.width % 2 == 0) currentGameState = currentGameState.copy(anchorPosition = Point((gridDims.width / 2) - 1, 1))
-  else currentGameState = currentGameState.copy(anchorPosition = Point(gridDims.width / 2, 1))
+ currentGameState = currentGameState.copy(anchorPosition =  if (gridDims.width % 2 == 0) Point((gridDims.width / 2) - 1, 1) else Point(gridDims.width / 2, 1))
 
   def relativeToAbsolutePositions (blockShape: List[Point]): List[Point] = {
     val adaptedShape = blockShape.map{point =>
@@ -76,7 +75,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     )
   }
 
-  def rotate(direction: String): Unit = {
+  private def rotate(direction: String): Unit = {
     val currentTetromino = currentGameState.currentBlockType match {
       case OCell => new OCellBlock(currentGameState)
       case ICell => new ICellBlock(currentGameState)
@@ -94,17 +93,13 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     }
   }
 
-
   def rotateLeft(): Unit = rotate("Left")
-
   def rotateRight(): Unit = rotate("Right")
 
-  def move(direction: String): Unit = {
+  private def move(direction: String): Unit = {
     val (deltaX, deltaY) = direction match {
       case "Left" => (-1, 0)
       case "Right" => (1, 0)
-      case "Down" => (0, 1)
-      case _ => (0, 0)
     }
 
     val newAbsoluteBlockShape = currentGameState.absoluteBlockShape.map(point =>
@@ -128,9 +123,26 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
   def moveRight(): Unit = move("Right")
 
-  def moveDown(): Unit = move("Down")
+  def moveDown(): Unit = {
+    if (canMoveDown()) {
+      currentGameState = currentGameState.copy(
+        absoluteBlockShape = currentGameState.absoluteBlockShape.map(point => point.copy(y = point.y + 1)),
+        anchorPosition = Point(currentGameState.anchorPosition.x, currentGameState.anchorPosition.y + 1)
+      )
+    } else {
+      val newTetrisBlock = (currentGameState.currentBlockType, currentGameState.absoluteBlockShape)
+      val newTetrisBlocks = newTetrisBlock :: currentGameState.tetrisBlocks
+      currentGameState = currentGameState.copy(
+        tetrisBlocks = newTetrisBlocks,
+        anchorPosition = if (gridDims.width % 2 == 0) Point((gridDims.width / 2) - 1, 1) else Point(gridDims.width / 2, 1)
+      )
 
-  def canMoveDown(): Boolean = {
+      createBlock()
+    }
+
+  }
+
+  private def canMoveDown(): Boolean = {
     val potentialNewPositions = currentGameState.absoluteBlockShape.map(point => point.copy(y = point.y + 1))
     isValidPosition(potentialNewPositions)
   }
@@ -141,12 +153,12 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
   def isGameOver: Boolean = currentGameState.gameIsOver
 
-  def gameOver (): Unit = {
+  private def gameOver (): Unit = {
     val highestBlockHeight = currentGameState.absoluteBlockShape.map(_.y).min
     if (highestBlockHeight <= 0) currentGameState = currentGameState.copy(gameIsOver = true)
   }
 
-  def readInitialBoard(): Unit = {
+  private def readInitialBoard(): Unit = {
     val tetrisBlocks = initialBoard.zipWithIndex.flatMap {
       case (row, rowIndex) =>
         row.zipWithIndex.collect {
@@ -159,7 +171,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     currentGameState = currentGameState.copy(tetrisBlocks = tetrisBlocks)
   }
 
-  def removeRows(): Unit = {}
+  private def removeLines(): Unit = {}
 
   def getCellType(p: Point): CellType = {
 
