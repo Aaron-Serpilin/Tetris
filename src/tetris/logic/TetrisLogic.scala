@@ -1,6 +1,6 @@
 package tetris.logic
 
-import engine.graphics.Rectangle
+//import engine.graphics.Rectangle
 import engine.random.{RandomGenerator, ScalaRandomGen}
 import tetris.logic.TetrisLogic._
 
@@ -37,6 +37,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   if (gridDims.width % 2 == 0) currentGameState = currentGameState.copy(anchorPosition = Point((gridDims.width / 2) - 1, 1))
   else currentGameState = currentGameState.copy(anchorPosition = Point(gridDims.width / 2, 1))
 
+
   def relativeToAbsolutePositions (blockShape: List[Point]): List[Point] = {
     val adaptedShape = blockShape.map{point =>
       val absoluteX = point.x + currentGameState.anchorPosition.x
@@ -46,11 +47,13 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     adaptedShape
   }
 
-  def initializeTetromino(tetrominoType: CellType): Unit = {
-    val tetromino = tetrominoType match {
+  def createBlock(): Unit = {
+    val randomShapeIndex = randomGen.randomInt(blockTypes.length)
+    val randomShape = blockTypes(randomShapeIndex)
+    val tetromino = randomShape match {
       case ICell => new ICellBlock(currentGameState)
       case OCell => new OCellBlock(currentGameState)
-      case JCell | LCell | SCell | TCell | ZCell => new standardBlock(currentGameState, tetrominoType)
+      case JCell | LCell | SCell | TCell | ZCell => new standardBlock(currentGameState, randomShape)
     }
 
     val relativePositions = tetromino.initialPositions()
@@ -60,14 +63,8 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
       currentBlock = tetromino,
       relativeBlockShape = relativePositions,
       absoluteBlockShape = absolutePositions,
-      currentBlockType = tetrominoType
+      currentBlockType = randomShape
     )
-  }
-
-  def createBlock(): Unit = {
-    val randomShapeIndex = randomGen.randomInt(blockTypes.length)
-    val randomShape = blockTypes(randomShapeIndex)
-    initializeTetromino(randomShape)
   }
 
   def rotate(direction: String): Unit = {
@@ -77,7 +74,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
       case _ => new standardBlock(currentGameState, currentGameState.currentBlockType)
     }
 
-    val relativeRotatedTetromino = if (direction == "Left") currentTetromino.rotateLeft() else currentTetromino.rotateRight()
+    val relativeRotatedTetromino = if (direction == "L") currentTetromino.rotateLeft() else currentTetromino.rotateRight()
     val rotatedTetromino = relativeToAbsolutePositions(relativeRotatedTetromino)
 
     currentGameState = currentGameState.copy(
@@ -86,9 +83,9 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     )
   }
 
-  def rotateLeft(): Unit = rotate("Left")
+  def rotateLeft(): Unit = rotate("L")
 
-  def rotateRight(): Unit = rotate("Right")
+  def rotateRight(): Unit = rotate("R")
 
   def moveLeft(): Unit = {
     val lowestBlockWidth = currentGameState.absoluteBlockShape.map(_.x).min // Returns the x-coordinate of the block with the lowest value
@@ -145,8 +142,23 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
   def isGameOver: Boolean = currentGameState.gameIsOver
 
+  def readInitialBoard(initialBoard: Seq[Seq[CellType]]): Unit = {
+    val tetrisBlocks = initialBoard.zipWithIndex.flatMap {
+      case (row, rowIndex) =>
+        row.zipWithIndex.collect {
+          case (cellType, columnIndex) if cellType != Empty =>
+            val absolutePosition = Point(columnIndex, rowIndex)
+            (cellType, List(absolutePosition))
+        }
+    }.toList
+
+    currentGameState = currentGameState.copy(tetrisBlocks = tetrisBlocks)
+  }
+
+
   def getCellType(p: Point): CellType = {
 
+    readInitialBoard(initialBoard)
     if (currentGameState.currentBlock == null) createBlock()
     if (currentGameState.absoluteBlockShape.contains(p)) return currentGameState.currentBlockType
 
