@@ -57,13 +57,22 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     val relativePositions = tetromino.initialPositions()
     val absolutePositions = relativeToAbsolutePositions(relativePositions)
 
-    currentGameState = currentGameState.copy(
-      currentBlock = tetromino,
-      relativeBlockShape = relativePositions,
-      absoluteBlockShape = absolutePositions,
-      currentBlockType = randomShape
+    val isOccupied = absolutePositions.exists(position => // Check if any of the spawning positions are occupied
+      currentGameState.tetrisBlocks.exists {
+        case (_, blockPositions) => blockPositions.contains(position)
+      }
     )
 
+    if (isOccupied) {
+      currentGameState = currentGameState.copy(gameIsOver = true) // If any position is occupied, set gameIsOver to true
+    } else {
+      currentGameState = currentGameState.copy(
+        currentBlock = tetromino,
+        relativeBlockShape = relativePositions,
+        absoluteBlockShape = absolutePositions,
+        currentBlockType = randomShape
+      )
+    }
   }
 
   private def isValidPosition(blockShape: List[Point]): Boolean = {
@@ -136,7 +145,6 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
         tetrisBlocks = newTetrisBlocks,
         anchorPosition = if (gridDims.width % 2 == 0) Point((gridDims.width / 2) - 1, 1) else Point(gridDims.width / 2, 1)
       )
-
       createBlock()
     }
 
@@ -152,11 +160,6 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   }
 
   def isGameOver: Boolean = currentGameState.gameIsOver
-
-  private def gameOver (): Unit = {
-    val highestBlockHeight = currentGameState.absoluteBlockShape.map(_.y).min
-    if (highestBlockHeight <= 0) currentGameState = currentGameState.copy(gameIsOver = true)
-  }
 
   private def readInitialBoard(): Unit = {
     val tetrisBlocks = initialBoard.zipWithIndex.flatMap {
