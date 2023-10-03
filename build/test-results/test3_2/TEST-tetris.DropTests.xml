@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tetris.DropTests" tests="1" skipped="0" failures="1" errors="0" timestamp="2023-10-03T10:43:33" hostname="Jays-MacBook-Pro-2.local" time="0.062">
+<testsuite name="tetris.DropTests" tests="1" skipped="0" failures="1" errors="0" timestamp="2023-10-03T12:07:59" hostname="Jays-MacBook-Pro-2.local" time="0.049">
   <properties/>
-  <testcase name="testDrop" classname="tetris.DropTests" time="0.062">
-    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: The drop action immediately moves the current tetromino all the way down such that it&#10;collides with other blocks or the bottom of the board, and spawns a new tetromino.&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=0, actions=&lt;Drop&gt;&#10;Want | Got ✓&#10;------------&#10;.... | .... &#10;IIII | IIII &#10;.... | .... &#10;.... | .... &#10;.T.. | .T.. &#10;TTT. | TTT. &#10;&#10;step=1, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✓&#10;------------&#10;..I. | ..I. &#10;..I. | ..I. &#10;..I. | ..I. &#10;..I. | ..I. &#10;.T.. | .T.. &#10;TTT. | TTT. &#10;&#10;step=2, rand=0, actions=&lt;Right&gt;&#10;Want | Got ✓&#10;------------&#10;...I | ...I &#10;...I | ...I &#10;...I | ...I &#10;...I | ...I &#10;.T.. | .T.. &#10;TTT. | TTT. &#10;&#10;step=3, rand=5, actions=&lt;Drop&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;TTT. | .... &#10;.... | ...I &#10;...I | ...I &#10;...I | .T.I &#10;.T.I | TTTI &#10;&#10;step=4, rand=5, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;.TT. | .... &#10;.T.. | .... &#10;...I | .... &#10;...I | .III &#10;.T.I | TTT. &#10;&#10;step=5, rand=5, actions=&lt;Left&gt;&#10;Want | Got ✗&#10;------------&#10;T... | .... &#10;TT.. | .... &#10;T... | .... &#10;...I | .... &#10;...I | IIII &#10;.T.I | TTT. &#10;&#10;step=6, rand=0, actions=&lt;Drop&gt;&#10;Want | Got ✗&#10;------------&#10;.... | .... &#10;IIII | .... &#10;.... | .... &#10;T..I | .... &#10;TT.I | IIII &#10;TT.I | TTT. &#10;&#10;step=7, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;..I. | .... &#10;..I. | .... &#10;..I. | .I.. &#10;T.II | .I.. &#10;TT.I | .I.. &#10;TT.I | TIT. &#10;&#10;step=8, rand=5, actions=&lt;Drop&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;TTT. | .... &#10;.... | .I.. &#10;.... | .I.. &#10;..I. | .I.. &#10;T.II | TIT. &#10;&#10;step=9, rand=5, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;.TT. | .... &#10;.T.. | .... &#10;.... | IIII &#10;..I. | .T.. &#10;T.II | TTT. &#10;&#10;step=10, rand=5, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.... | .... &#10;TTT. | .... &#10;.T.. | ..I. &#10;.... | ..I. &#10;..I. | .TI. &#10;T.II | TTI. &#10;&#10;step=11, rand=5, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;TT.. | .... &#10;.T.. | .... &#10;.... | .... &#10;..I. | IIII &#10;T.II | TTT. &#10;&#10;step=12, rand=0, actions=&lt;Drop&gt;&#10;Want | Got ✗&#10;------------&#10;.... | .... &#10;IIII | .... &#10;.... | .... &#10;.... | .... &#10;.T.. | IIII &#10;TTI. | TTT. &#10;&#10;step=13, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;..I. | .... &#10;..I. | .... &#10;..I. | .I.. &#10;..I. | .I.. &#10;.T.. | .I.. &#10;TTI. | TIT. &#10;&#10;step=14, rand=0, actions=&lt;Right&gt;&#10;Want | Got ✗&#10;------------&#10;...I | .... &#10;...I | .... &#10;...I | ..I. &#10;...I | ..I. &#10;.T.. | .TI. &#10;TTI. | TTI. &#10;&#10;step=15, rand=5, actions=&lt;Drop&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;TTT. | .... &#10;.... | ..I. &#10;...I | ..I. &#10;...I | .TI. &#10;.T.I | TTI. &#10;&#10;step=16, rand=5, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;.TT. | .... &#10;.T.. | .... &#10;...I | .III &#10;...I | .T.. &#10;.T.I | TTT. &#10;&#10;step=17, rand=5, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.... | .... &#10;TTT. | .... &#10;.T.. | ...I &#10;...I | ...I &#10;...I | .T.I &#10;.T.I | TTTI &#10;&#10;step=18, rand=5, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;TT.. | .... &#10;.T.. | .... &#10;...I | .... &#10;...I | .III &#10;.T.I | TTT. &#10;&#10;step=19, rand=5, actions=&lt;Right&gt;&#10;Want | Got ✗&#10;------------&#10;..T. | .... &#10;.TT. | .... &#10;..T. | .... &#10;...I | .... &#10;...I | .III &#10;.T.I | TTT. &#10;&#10;step=20, rand=0, actions=&lt;Drop&gt;&#10;Want | Got ✗&#10;------------&#10;.... | .... &#10;IIII | .... &#10;.... | .... &#10;..TI | .... &#10;.TTI | .III &#10;.TTI | TTT. &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
+  <testcase name="testDrop" classname="tetris.DropTests" time="0.049">
+    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: The drop action immediately moves the current tetromino all the way down such that it&#10;collides with other blocks or the bottom of the board, and spawns a new tetromino.&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=0, actions=&lt;Drop&gt;&#10;Want | Got ✓&#10;------------&#10;.... | .... &#10;IIII | IIII &#10;.... | .... &#10;.... | .... &#10;.T.. | .T.. &#10;TTT. | TTT. &#10;&#10;step=1, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✓&#10;------------&#10;..I. | ..I. &#10;..I. | ..I. &#10;..I. | ..I. &#10;..I. | ..I. &#10;.T.. | .T.. &#10;TTT. | TTT. &#10;&#10;step=2, rand=0, actions=&lt;Right&gt;&#10;Want | Got ✓&#10;------------&#10;...I | ...I &#10;...I | ...I &#10;...I | ...I &#10;...I | ...I &#10;.T.. | .T.. &#10;TTT. | TTT. &#10;&#10;step=3, rand=5, actions=&lt;Drop&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;TTT. | .... &#10;.... | ...I &#10;...I | ...I &#10;...I | .T.I &#10;.T.I | TTTI &#10;&#10;step=4, rand=5, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;.TT. | .... &#10;.T.. | ...I &#10;...I | ...I &#10;...I | .T.I &#10;.T.I | TTTI &#10;&#10;step=5, rand=5, actions=&lt;Left&gt;&#10;Want | Got ✗&#10;------------&#10;T... | .... &#10;TT.. | .... &#10;T... | ..I. &#10;...I | ..I. &#10;...I | .TI. &#10;.T.I | TTI. &#10;&#10;step=6, rand=0, actions=&lt;Drop&gt;&#10;Want | Got ✗&#10;------------&#10;.... | .... &#10;IIII | .... &#10;.... | ..I. &#10;T..I | ..I. &#10;TT.I | .TI. &#10;TT.I | TTI. &#10;&#10;step=7, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;..I. | .... &#10;..I. | .... &#10;..I. | .... &#10;T.II | .... &#10;TT.I | IIII &#10;TT.I | TTT. &#10;&#10;step=8, rand=5, actions=&lt;Drop&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;TTT. | .... &#10;.... | .... &#10;.... | .... &#10;..I. | IIII &#10;T.II | TTT. &#10;&#10;step=9, rand=5, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;.TT. | .... &#10;.T.. | .I.. &#10;.... | .I.. &#10;..I. | .I.. &#10;T.II | TIT. &#10;&#10;step=10, rand=5, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.... | .... &#10;TTT. | .... &#10;.T.. | .... &#10;.... | IIII &#10;..I. | .T.. &#10;T.II | TTT. &#10;&#10;step=11, rand=5, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;TT.. | .... &#10;.T.. | ..I. &#10;.... | ..I. &#10;..I. | .TI. &#10;T.II | TTI. &#10;&#10;step=12, rand=0, actions=&lt;Drop&gt;&#10;Want | Got ✗&#10;------------&#10;.... | .... &#10;IIII | .... &#10;.... | ..I. &#10;.... | ..I. &#10;.T.. | .TI. &#10;TTI. | TTI. &#10;&#10;step=13, rand=0, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;..I. | .... &#10;..I. | .... &#10;..I. | .... &#10;..I. | .... &#10;.T.. | IIII &#10;TTI. | TTT. &#10;&#10;step=14, rand=0, actions=&lt;Right&gt;&#10;Want | Got ✗&#10;------------&#10;...I | .... &#10;...I | .... &#10;...I | .... &#10;...I | .... &#10;.T.. | IIII &#10;TTI. | TTT. &#10;&#10;step=15, rand=5, actions=&lt;Drop&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;TTT. | .... &#10;.... | .... &#10;...I | .... &#10;...I | IIII &#10;.T.I | TTT. &#10;&#10;step=16, rand=5, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;.TT. | .... &#10;.T.. | .I.. &#10;...I | .I.. &#10;...I | .I.. &#10;.T.I | TIT. &#10;&#10;step=17, rand=5, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.... | .... &#10;TTT. | .... &#10;.T.. | .... &#10;...I | IIII &#10;...I | .T.. &#10;.T.I | TTT. &#10;&#10;step=18, rand=5, actions=&lt;RotateRight&gt;&#10;Want | Got ✗&#10;------------&#10;.T.. | .... &#10;TT.. | .... &#10;.T.. | ..I. &#10;...I | ..I. &#10;...I | .TI. &#10;.T.I | TTI. &#10;&#10;step=19, rand=5, actions=&lt;Right&gt;&#10;Want | Got ✗&#10;------------&#10;..T. | .... &#10;.TT. | .... &#10;..T. | ...I &#10;...I | ...I &#10;...I | .T.I &#10;.T.I | TTTI &#10;&#10;step=20, rand=0, actions=&lt;Drop&gt;&#10;Want | Got ✗&#10;------------&#10;.... | .... &#10;IIII | .... &#10;.... | ...I &#10;..TI | ...I &#10;.TTI | .T.I &#10;.TTI | TTTI &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
 Hint: The drop action immediately moves the current tetromino all the way down such that it
 collides with other blocks or the bottom of the board, and spawns a new tetromino.
 --------------------------------------------------------------------------------
@@ -53,170 +53,170 @@ Want | Got ✗
 ------------
 .T.. | .... 
 .TT. | .... 
-.T.. | .... 
-...I | .... 
-...I | .III 
-.T.I | TTT. 
+.T.. | ...I 
+...I | ...I 
+...I | .T.I 
+.T.I | TTTI 
 
 step=5, rand=5, actions=&lt;Left&gt;
 Want | Got ✗
 ------------
 T... | .... 
 TT.. | .... 
-T... | .... 
-...I | .... 
-...I | IIII 
-.T.I | TTT. 
+T... | ..I. 
+...I | ..I. 
+...I | .TI. 
+.T.I | TTI. 
 
 step=6, rand=0, actions=&lt;Drop&gt;
 Want | Got ✗
 ------------
 .... | .... 
 IIII | .... 
-.... | .... 
-T..I | .... 
-TT.I | IIII 
-TT.I | TTT. 
+.... | ..I. 
+T..I | ..I. 
+TT.I | .TI. 
+TT.I | TTI. 
 
 step=7, rand=0, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
 ..I. | .... 
 ..I. | .... 
-..I. | .I.. 
-T.II | .I.. 
-TT.I | .I.. 
-TT.I | TIT. 
+..I. | .... 
+T.II | .... 
+TT.I | IIII 
+TT.I | TTT. 
 
 step=8, rand=5, actions=&lt;Drop&gt;
 Want | Got ✗
 ------------
 .T.. | .... 
 TTT. | .... 
-.... | .I.. 
-.... | .I.. 
-..I. | .I.. 
-T.II | TIT. 
+.... | .... 
+.... | .... 
+..I. | IIII 
+T.II | TTT. 
 
 step=9, rand=5, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
 .T.. | .... 
 .TT. | .... 
-.T.. | .... 
-.... | IIII 
-..I. | .T.. 
-T.II | TTT. 
+.T.. | .I.. 
+.... | .I.. 
+..I. | .I.. 
+T.II | TIT. 
 
 step=10, rand=5, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
 .... | .... 
 TTT. | .... 
-.T.. | ..I. 
-.... | ..I. 
-..I. | .TI. 
-T.II | TTI. 
+.T.. | .... 
+.... | IIII 
+..I. | .T.. 
+T.II | TTT. 
 
 step=11, rand=5, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
 .T.. | .... 
 TT.. | .... 
-.T.. | .... 
-.... | .... 
-..I. | IIII 
-T.II | TTT. 
+.T.. | ..I. 
+.... | ..I. 
+..I. | .TI. 
+T.II | TTI. 
 
 step=12, rand=0, actions=&lt;Drop&gt;
 Want | Got ✗
 ------------
 .... | .... 
 IIII | .... 
-.... | .... 
-.... | .... 
-.T.. | IIII 
-TTI. | TTT. 
+.... | ..I. 
+.... | ..I. 
+.T.. | .TI. 
+TTI. | TTI. 
 
 step=13, rand=0, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
 ..I. | .... 
 ..I. | .... 
-..I. | .I.. 
-..I. | .I.. 
-.T.. | .I.. 
-TTI. | TIT. 
+..I. | .... 
+..I. | .... 
+.T.. | IIII 
+TTI. | TTT. 
 
 step=14, rand=0, actions=&lt;Right&gt;
 Want | Got ✗
 ------------
 ...I | .... 
 ...I | .... 
-...I | ..I. 
-...I | ..I. 
-.T.. | .TI. 
-TTI. | TTI. 
+...I | .... 
+...I | .... 
+.T.. | IIII 
+TTI. | TTT. 
 
 step=15, rand=5, actions=&lt;Drop&gt;
 Want | Got ✗
 ------------
 .T.. | .... 
 TTT. | .... 
-.... | ..I. 
-...I | ..I. 
-...I | .TI. 
-.T.I | TTI. 
+.... | .... 
+...I | .... 
+...I | IIII 
+.T.I | TTT. 
 
 step=16, rand=5, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
 .T.. | .... 
 .TT. | .... 
-.T.. | .... 
-...I | .III 
-...I | .T.. 
-.T.I | TTT. 
+.T.. | .I.. 
+...I | .I.. 
+...I | .I.. 
+.T.I | TIT. 
 
 step=17, rand=5, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
 .... | .... 
 TTT. | .... 
-.T.. | ...I 
-...I | ...I 
-...I | .T.I 
-.T.I | TTTI 
+.T.. | .... 
+...I | IIII 
+...I | .T.. 
+.T.I | TTT. 
 
 step=18, rand=5, actions=&lt;RotateRight&gt;
 Want | Got ✗
 ------------
 .T.. | .... 
 TT.. | .... 
-.T.. | .... 
-...I | .... 
-...I | .III 
-.T.I | TTT. 
+.T.. | ..I. 
+...I | ..I. 
+...I | .TI. 
+.T.I | TTI. 
 
 step=19, rand=5, actions=&lt;Right&gt;
 Want | Got ✗
 ------------
 ..T. | .... 
 .TT. | .... 
-..T. | .... 
-...I | .... 
-...I | .III 
-.T.I | TTT. 
+..T. | ...I 
+...I | ...I 
+...I | .T.I 
+.T.I | TTTI 
 
 step=20, rand=0, actions=&lt;Drop&gt;
 Want | Got ✗
 ------------
 .... | .... 
 IIII | .... 
-.... | .... 
-..TI | .... 
-.TTI | .III 
-.TTI | TTT. 
+.... | ...I 
+..TI | ...I 
+.TTI | .T.I 
+.TTI | TTTI 
 
 
 	at app//org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:530)

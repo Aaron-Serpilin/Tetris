@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tetris.SpawnTests" tests="2" skipped="0" failures="2" errors="0" timestamp="2023-10-03T10:43:33" hostname="Jays-MacBook-Pro-2.local" time="0.026">
+<testsuite name="tetris.SpawnTests" tests="2" skipped="0" failures="2" errors="0" timestamp="2023-10-03T12:07:59" hostname="Jays-MacBook-Pro-2.local" time="0.02">
   <properties/>
-  <testcase name="testSpawn" classname="tetris.SpawnTests" time="0.012">
-    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: A new tetromino is spawned when moveDown is called but the current tetromino cannot move&#10;down.&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=0, actions=&lt;&gt;&#10;Want  | Got ✓&#10;-------------&#10;..... | .....&#10;.IIII | .IIII&#10;..... | .....&#10;..... | .....&#10;&#10;step=1, rand=0, actions=&lt;Down&gt;&#10;Want  | Got ✓&#10;-------------&#10;..... | .....&#10;..... | .....&#10;.IIII | .IIII&#10;..... | .....&#10;&#10;step=2, rand=0, actions=&lt;Down&gt;&#10;Want  | Got ✓&#10;-------------&#10;..... | .....&#10;..... | .....&#10;..... | .....&#10;.IIII | .IIII&#10;&#10;step=3, rand=0, actions=&lt;Down&gt;&#10;Want  | Got ✗&#10;-------------&#10;..... | .....&#10;.IIII | ..III&#10;..... | .....&#10;.IIII | .....&#10;&#10;step=4, rand=0, actions=&lt;Down&gt;&#10;Want  | Got ✗&#10;-------------&#10;..... | .....&#10;..... | .....&#10;.IIII | ..III&#10;.IIII | .....&#10;&#10;step=5, rand=0, actions=&lt;Down&gt;&#10;Want  | Got ✗&#10;-------------&#10;..... | .....&#10;.IIII | .....&#10;.IIII | .....&#10;.IIII | ..III&#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
+  <testcase name="testSpawn" classname="tetris.SpawnTests" time="0.004">
+    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: A new tetromino is spawned when moveDown is called but the current tetromino cannot move&#10;down.&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=0, actions=&lt;&gt;&#10;Want  | Got ✓&#10;-------------&#10;..... | .....&#10;.IIII | .IIII&#10;..... | .....&#10;..... | .....&#10;&#10;step=1, rand=0, actions=&lt;Down&gt;&#10;Want  | Got ✓&#10;-------------&#10;..... | .....&#10;..... | .....&#10;.IIII | .IIII&#10;..... | .....&#10;&#10;step=2, rand=0, actions=&lt;Down&gt;&#10;Want  | Got ✓&#10;-------------&#10;..... | .....&#10;..... | .....&#10;..... | .....&#10;.IIII | .IIII&#10;&#10;step=3, rand=0, actions=&lt;Down&gt;&#10;Want  | Got ✗&#10;-------------&#10;..... | .....&#10;.IIII | ..III&#10;..... | .....&#10;.IIII | .IIII&#10;&#10;step=4, rand=0, actions=&lt;Down&gt;&#10;Want  | Got ✗&#10;-------------&#10;..... | .....&#10;..... | .....&#10;.IIII | ..III&#10;.IIII | .IIII&#10;&#10;step=5, rand=0, actions=&lt;Down&gt;&#10;Want  | Got ✗&#10;-------------&#10;..... | .....&#10;.IIII | ..III&#10;.IIII | ..III&#10;.IIII | .IIII&#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
 Hint: A new tetromino is spawned when moveDown is called but the current tetromino cannot move
 down.
 --------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ Want  | Got ✗
 ..... | .....
 .IIII | ..III
 ..... | .....
-.IIII | .....
+.IIII | .IIII
 
 step=4, rand=0, actions=&lt;Down&gt;
 Want  | Got ✗
@@ -46,15 +46,15 @@ Want  | Got ✗
 ..... | .....
 ..... | .....
 .IIII | ..III
-.IIII | .....
+.IIII | .IIII
 
 step=5, rand=0, actions=&lt;Down&gt;
 Want  | Got ✗
 -------------
 ..... | .....
-.IIII | .....
-.IIII | .....
 .IIII | ..III
+.IIII | ..III
+.IIII | .IIII
 
 
 	at app//org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:530)
@@ -141,8 +141,8 @@ Want  | Got ✗
 	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
 </failure>
   </testcase>
-  <testcase name="testSpawn2" classname="tetris.SpawnTests" time="0.013">
-    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: A new tetromino is spawned when moveDown is called but the current tetromino cannot move&#10;down.&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=1, actions=&lt;&gt;&#10;Want | Got ✓&#10;------------&#10;J... | J... &#10;JJJ. | JJJ. &#10;.... | .... &#10;.... | .... &#10;.... | .... &#10;.... | .... &#10;&#10;step=1, rand=1, actions=&lt;Down&gt;&#10;Want | Got ✓&#10;------------&#10;.... | .... &#10;J... | J... &#10;JJJ. | JJJ. &#10;.... | .... &#10;.... | .... &#10;.... | .... &#10;&#10;step=2, rand=1, actions=&lt;Down&gt;&#10;Want | Got ✓&#10;------------&#10;.... | .... &#10;.... | .... &#10;J... | J... &#10;JJJ. | JJJ. &#10;.... | .... &#10;.... | .... &#10;&#10;step=3, rand=1, actions=&lt;Down&gt;&#10;Want | Got ✓&#10;------------&#10;.... | .... &#10;.... | .... &#10;.... | .... &#10;J... | J... &#10;JJJ. | JJJ. &#10;.... | .... &#10;&#10;step=4, rand=1, actions=&lt;Down&gt;&#10;Want | Got ✓&#10;------------&#10;.... | .... &#10;.... | .... &#10;.... | .... &#10;.... | .... &#10;J... | J... &#10;JJJ. | JJJ. &#10;&#10;step=5, rand=2, actions=&lt;Down&gt;&#10;Want | Got ✗&#10;------------&#10;..L. | ...L &#10;LLL. | .LLL &#10;.... | .... &#10;.... | .... &#10;J... | .... &#10;JJJ. | .... &#10;&#10;step=6, rand=2, actions=&lt;Down&gt;&#10;Want | Got ✗&#10;------------&#10;.... | .... &#10;..L. | ...L &#10;LLL. | .LLL &#10;.... | .... &#10;J... | .... &#10;JJJ. | .... &#10;&#10;step=7, rand=2, actions=&lt;Down&gt;&#10;Want | Got ✗&#10;------------&#10;.... | .... &#10;.... | .... &#10;..L. | ...L &#10;LLL. | .LLL &#10;J... | .... &#10;JJJ. | .... &#10;&#10;step=8, rand=3, actions=&lt;Down&gt;&#10;Want | Got ✗&#10;------------&#10;.OO. | .... &#10;.OO. | .... &#10;..L. | .... &#10;LLL. | ...L &#10;J... | .LLL &#10;JJJ. | .... &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
+  <testcase name="testSpawn2" classname="tetris.SpawnTests" time="0.016">
+    <failure message="org.scalatest.exceptions.TestFailedException: didPass was false&#10;Hint: A new tetromino is spawned when moveDown is called but the current tetromino cannot move&#10;down.&#10;--------------------------------------------------------------------------------&#10;This is what went wrong:&#10;&#10;step=0, rand=1, actions=&lt;&gt;&#10;Want | Got ✓&#10;------------&#10;J... | J... &#10;JJJ. | JJJ. &#10;.... | .... &#10;.... | .... &#10;.... | .... &#10;.... | .... &#10;&#10;step=1, rand=1, actions=&lt;Down&gt;&#10;Want | Got ✓&#10;------------&#10;.... | .... &#10;J... | J... &#10;JJJ. | JJJ. &#10;.... | .... &#10;.... | .... &#10;.... | .... &#10;&#10;step=2, rand=1, actions=&lt;Down&gt;&#10;Want | Got ✓&#10;------------&#10;.... | .... &#10;.... | .... &#10;J... | J... &#10;JJJ. | JJJ. &#10;.... | .... &#10;.... | .... &#10;&#10;step=3, rand=1, actions=&lt;Down&gt;&#10;Want | Got ✓&#10;------------&#10;.... | .... &#10;.... | .... &#10;.... | .... &#10;J... | J... &#10;JJJ. | JJJ. &#10;.... | .... &#10;&#10;step=4, rand=1, actions=&lt;Down&gt;&#10;Want | Got ✓&#10;------------&#10;.... | .... &#10;.... | .... &#10;.... | .... &#10;.... | .... &#10;J... | J... &#10;JJJ. | JJJ. &#10;&#10;step=5, rand=2, actions=&lt;Down&gt;&#10;Want | Got ✗            &#10;------------------------&#10;..L. | GameOverDisplay()&#10;LLL. |                  &#10;.... |                  &#10;.... |                  &#10;J... |                  &#10;JJJ. |                  &#10;&#10;step=6, rand=2, actions=&lt;Down&gt;&#10;Want | Got ✗            &#10;------------------------&#10;.... | GameOverDisplay()&#10;..L. |                  &#10;LLL. |                  &#10;.... |                  &#10;J... |                  &#10;JJJ. |                  &#10;&#10;step=7, rand=2, actions=&lt;Down&gt;&#10;Want | Got ✗            &#10;------------------------&#10;.... | GameOverDisplay()&#10;.... |                  &#10;..L. |                  &#10;LLL. |                  &#10;J... |                  &#10;JJJ. |                  &#10;&#10;step=8, rand=3, actions=&lt;Down&gt;&#10;Want | Got ✗            &#10;------------------------&#10;.OO. | GameOverDisplay()&#10;.OO. |                  &#10;..L. |                  &#10;LLL. |                  &#10;J... |                  &#10;JJJ. |                  &#10;&#10;" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: didPass was false
 Hint: A new tetromino is spawned when moveDown is called but the current tetromino cannot move
 down.
 --------------------------------------------------------------------------------
@@ -199,44 +199,44 @@ J... | J...
 JJJ. | JJJ. 
 
 step=5, rand=2, actions=&lt;Down&gt;
-Want | Got ✗
-------------
-..L. | ...L 
-LLL. | .LLL 
-.... | .... 
-.... | .... 
-J... | .... 
-JJJ. | .... 
+Want | Got ✗            
+------------------------
+..L. | GameOverDisplay()
+LLL. |                  
+.... |                  
+.... |                  
+J... |                  
+JJJ. |                  
 
 step=6, rand=2, actions=&lt;Down&gt;
-Want | Got ✗
-------------
-.... | .... 
-..L. | ...L 
-LLL. | .LLL 
-.... | .... 
-J... | .... 
-JJJ. | .... 
+Want | Got ✗            
+------------------------
+.... | GameOverDisplay()
+..L. |                  
+LLL. |                  
+.... |                  
+J... |                  
+JJJ. |                  
 
 step=7, rand=2, actions=&lt;Down&gt;
-Want | Got ✗
-------------
-.... | .... 
-.... | .... 
-..L. | ...L 
-LLL. | .LLL 
-J... | .... 
-JJJ. | .... 
+Want | Got ✗            
+------------------------
+.... | GameOverDisplay()
+.... |                  
+..L. |                  
+LLL. |                  
+J... |                  
+JJJ. |                  
 
 step=8, rand=3, actions=&lt;Down&gt;
-Want | Got ✗
-------------
-.OO. | .... 
-.OO. | .... 
-..L. | .... 
-LLL. | ...L 
-J... | .LLL 
-JJJ. | .... 
+Want | Got ✗            
+------------------------
+.OO. | GameOverDisplay()
+.OO. |                  
+..L. |                  
+LLL. |                  
+J... |                  
+JJJ. |                  
 
 
 	at app//org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:530)

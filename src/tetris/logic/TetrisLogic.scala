@@ -37,7 +37,6 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   if (gridDims.width % 2 == 0) currentGameState = currentGameState.copy(anchorPosition = Point((gridDims.width / 2) - 1, 1))
   else currentGameState = currentGameState.copy(anchorPosition = Point(gridDims.width / 2, 1))
 
-
   def relativeToAbsolutePositions (blockShape: List[Point]): List[Point] = {
     val adaptedShape = blockShape.map{point =>
       val absoluteX = point.x + currentGameState.anchorPosition.x
@@ -65,6 +64,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
       absoluteBlockShape = absolutePositions,
       currentBlockType = randomShape
     )
+
   }
 
   def rotate(direction: String): Unit = {
@@ -77,11 +77,18 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     val relativeRotatedTetromino = if (direction == "L") currentTetromino.rotateLeft() else currentTetromino.rotateRight()
     val rotatedTetromino = relativeToAbsolutePositions(relativeRotatedTetromino)
 
-    currentGameState = currentGameState.copy(
-      relativeBlockShape = relativeRotatedTetromino,
-      absoluteBlockShape = rotatedTetromino
+    val withinBounds = rotatedTetromino.forall(point =>
+      point.x >= 0 && point.x < gridDims.width && point.y >= 0 && point.y < gridDims.height
     )
+
+    if (withinBounds) {
+      currentGameState = currentGameState.copy(
+        relativeBlockShape = relativeRotatedTetromino,
+        absoluteBlockShape = rotatedTetromino
+      )
+    }
   }
+
 
   def rotateLeft(): Unit = rotate("L")
 
@@ -134,6 +141,8 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
       createBlock()
     }
+
+    gameOver()
   }
 
   def doHardDrop(): Unit = {
@@ -142,7 +151,12 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
   def isGameOver: Boolean = currentGameState.gameIsOver
 
-  def readInitialBoard(initialBoard: Seq[Seq[CellType]]): Unit = {
+  def gameOver (): Unit = {
+    val highestBlockHeight = currentGameState.absoluteBlockShape.map(_.y).min
+    if (highestBlockHeight <= 0) currentGameState = currentGameState.copy(gameIsOver = true)
+  }
+
+  def readInitialBoard(): Unit = {
     val tetrisBlocks = initialBoard.zipWithIndex.flatMap {
       case (row, rowIndex) =>
         row.zipWithIndex.collect {
@@ -155,11 +169,14 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     currentGameState = currentGameState.copy(tetrisBlocks = tetrisBlocks)
   }
 
+  def removeRows(): Unit = {}
 
   def getCellType(p: Point): CellType = {
 
-    readInitialBoard(initialBoard)
-    if (currentGameState.currentBlock == null) createBlock()
+    if (currentGameState.currentBlock == null) {
+      readInitialBoard()
+      createBlock()
+    }
     if (currentGameState.absoluteBlockShape.contains(p)) return currentGameState.currentBlockType
 
     for (previousBlocks <- currentGameState.tetrisBlocks) {
