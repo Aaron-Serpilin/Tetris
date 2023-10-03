@@ -67,6 +67,15 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
   }
 
+  private def isValidPosition(blockShape: List[Point]): Boolean = {
+    blockShape.forall(point =>
+      point.x >= 0 && point.x < gridDims.width && point.y >= 0 && point.y < gridDims.height && // Check for gridDims
+        !currentGameState.tetrisBlocks.exists(existingBlock => //Check for existing blocks
+          existingBlock._2.contains(point)
+        )
+    )
+  }
+
   def rotate(direction: String): Unit = {
     val currentTetromino = currentGameState.currentBlockType match {
       case OCell => new OCellBlock(currentGameState)
@@ -77,11 +86,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     val relativeRotatedTetromino = if (direction == "L") currentTetromino.rotateLeft() else currentTetromino.rotateRight()
     val rotatedTetromino = relativeToAbsolutePositions(relativeRotatedTetromino)
 
-    val withinBounds = rotatedTetromino.forall(point =>
-      point.x >= 0 && point.x < gridDims.width && point.y >= 0 && point.y < gridDims.height
-    )
-
-    if (withinBounds) {
+    if (isValidPosition(rotatedTetromino)) {
       currentGameState = currentGameState.copy(
         relativeBlockShape = relativeRotatedTetromino,
         absoluteBlockShape = rotatedTetromino
@@ -95,34 +100,38 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   def rotateRight(): Unit = rotate("R")
 
   def moveLeft(): Unit = {
-    val lowestBlockWidth = currentGameState.absoluteBlockShape.map(_.x).min // Returns the x-coordinate of the block with the lowest value
+    val lowestBlockWidth = currentGameState.absoluteBlockShape.map(_.x).min
     if (lowestBlockWidth > 0) {
-      currentGameState = currentGameState.copy(
-        absoluteBlockShape = currentGameState.absoluteBlockShape.map(point => point.copy(x = point.x - 1)),
-        anchorPosition = Point(currentGameState.anchorPosition.x - 1, currentGameState.anchorPosition.y)
-      )
+      val newAbsoluteBlockShape = currentGameState.absoluteBlockShape.map(point => point.copy(x = point.x - 1))
+      val newAnchorPosition = Point(currentGameState.anchorPosition.x - 1, currentGameState.anchorPosition.y)
+
+      if (isValidPosition(newAbsoluteBlockShape)) {
+        currentGameState = currentGameState.copy(
+          absoluteBlockShape = newAbsoluteBlockShape,
+          anchorPosition = newAnchorPosition
+        )
+      }
     }
   }
 
   def moveRight(): Unit = {
-    val highestBlockWidth = currentGameState.absoluteBlockShape.map(_.x).max // Returns the x-coordinate of the block with the highest value
+    val highestBlockWidth = currentGameState.absoluteBlockShape.map(_.x).max
     if (highestBlockWidth + 1 < gridDims.width) {
-      currentGameState = currentGameState.copy(
-        absoluteBlockShape = currentGameState.absoluteBlockShape.map(point => point.copy(x = point.x + 1)),
-        anchorPosition = Point(currentGameState.anchorPosition.x + 1, currentGameState.anchorPosition.y)
-      )
+      val newAbsoluteBlockShape = currentGameState.absoluteBlockShape.map(point => point.copy(x = point.x + 1))
+      val newAnchorPosition = Point(currentGameState.anchorPosition.x + 1, currentGameState.anchorPosition.y)
+
+      if (isValidPosition(newAbsoluteBlockShape)) {
+        currentGameState = currentGameState.copy(
+          absoluteBlockShape = newAbsoluteBlockShape,
+          anchorPosition = newAnchorPosition
+        )
+      }
     }
   }
 
   def canMoveDown(): Boolean = {
-    val highestBlockHeight = currentGameState.absoluteBlockShape.map(_.y).max // Returns the y-coordinate of the block with the highest value
-    val potentialNewPositions = currentGameState.absoluteBlockShape.map(point => point.copy(y = point.y + 1)) // Check if moving down would collide with existing blocks
-    val collidesWithExistingBlocks = potentialNewPositions.exists(newPosition =>
-      currentGameState.tetrisBlocks.exists(existingBlock =>
-        existingBlock._2.contains(newPosition)
-      )
-    )
-    highestBlockHeight + 1 < gridDims.height && !collidesWithExistingBlocks
+    val potentialNewPositions = currentGameState.absoluteBlockShape.map(point => point.copy(y = point.y + 1))
+    isValidPosition(potentialNewPositions)
   }
 
   def moveDown(): Unit = {
@@ -142,7 +151,6 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
       createBlock()
     }
 
-    gameOver()
   }
 
   def doHardDrop(): Unit = {
