@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tetris.SpawnTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-04T10:48:47" hostname="Jays-MacBook-Pro-2.local" time="0.018">
+<testsuite name="tetris.SpawnTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-04T14:49:45" hostname="Jays-MacBook-Pro-2.local" time="0.024">
   <properties/>
-  <testcase name="testSpawn" classname="tetris.SpawnTests" time="0.005"/>
-  <testcase name="testSpawn2" classname="tetris.SpawnTests" time="0.013"/>
+  <testcase name="testSpawn" classname="tetris.SpawnTests" time="0.011"/>
+  <testcase name="testSpawn2" classname="tetris.SpawnTests" time="0.012"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

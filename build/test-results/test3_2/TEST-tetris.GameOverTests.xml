@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tetris.GameOverTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-10-04T10:48:47" hostname="Jays-MacBook-Pro-2.local" time="0.015">
+<testsuite name="tetris.GameOverTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-10-04T14:49:45" hostname="Jays-MacBook-Pro-2.local" time="0.017">
   <properties/>
-  <testcase name="testGameOver" classname="tetris.GameOverTests" time="0.007"/>
+  <testcase name="testGameOver" classname="tetris.GameOverTests" time="0.009"/>
   <testcase name="testNoEscapeGameOver" classname="tetris.GameOverTests" time="0.003"/>
   <testcase name="testNoEscapeGameOver2" classname="tetris.GameOverTests" time="0.001"/>
   <testcase name="testNoGameOverTightFit" classname="tetris.GameOverTests" time="0.002"/>

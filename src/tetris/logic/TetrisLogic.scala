@@ -198,19 +198,20 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
   private def removeLines(): Unit = {
     val fullRowIndexes = findFullRows()
-    //println(s"The fullRowIndeces are ${findFullRows()}")
+
     if (fullRowIndexes.nonEmpty) {
-      val newTetrisBlocks = currentGameState.tetrisBlocks.flatMap { //We use flatMap and not map since map removes all the blocks of the fullRow, and flatMap only the units of the blocks in that row
+      val newTetrisBlocks = currentGameState.tetrisBlocks.flatMap { //We use flatMap so we can remove only the blocks in the fullRow, and not the entire blocks
         case (blockColor, blockPositions) =>
-          val updatedPositions = blockPositions.filterNot(point => fullRowIndexes.contains(point.y))
-          if (updatedPositions.nonEmpty) Some((blockColor, updatedPositions))
+          val nonCompleteRows = blockPositions.filterNot(point => fullRowIndexes.contains(point.y)) // We filter out the rows that are part of fullRowIndexes
+          val shiftedRows = nonCompleteRows.map(point => // We shift the rows that are not full and that are below the removedLine by the number of removedLines
+            if (point.y < fullRowIndexes.min) {Point(point.x, point.y + fullRowIndexes.size)} else point
+          )
+          if (shiftedRows.nonEmpty) Some((blockColor, shiftedRows))
           else None
       }
-
       currentGameState = currentGameState.copy(tetrisBlocks = newTetrisBlocks)
     }
   }
-
 
   def getCellType(p: Point): CellType = {
 
