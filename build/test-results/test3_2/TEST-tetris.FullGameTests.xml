@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tetris.FullGameTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-04T10:13:41" hostname="Jays-MacBook-Pro-2.local" time="0.258">
+<testsuite name="tetris.FullGameTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-04T10:48:47" hostname="Jays-MacBook-Pro-2.local" time="0.258">
   <properties/>
-  <testcase name="testGame5x9" classname="tetris.FullGameTests" time="0.035"/>
-  <testcase name="testGame8x11" classname="tetris.FullGameTests" time="0.103"/>
-  <testcase name="testGame6x10" classname="tetris.FullGameTests" time="0.043"/>
-  <testcase name="testInterleave5x9and8x11" classname="tetris.FullGameTests" time="0.04"/>
-  <testcase name="testInterleave8x11and6x10" classname="tetris.FullGameTests" time="0.028"/>
+  <testcase name="testGame5x9" classname="tetris.FullGameTests" time="0.026"/>
+  <testcase name="testGame8x11" classname="tetris.FullGameTests" time="0.123"/>
+  <testcase name="testGame6x10" classname="tetris.FullGameTests" time="0.033"/>
+  <testcase name="testInterleave5x9and8x11" classname="tetris.FullGameTests" time="0.046"/>
+  <testcase name="testInterleave8x11and6x10" classname="tetris.FullGameTests" time="0.02"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

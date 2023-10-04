@@ -45,17 +45,22 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     adaptedShape
   }
 
+  def createTetromino (tetrominoShape: CellType): Tetromino = {
+    val tetromino = tetrominoShape match {
+      case ICell => new ICellBlock(currentGameState)
+      case OCell => new OCellBlock(currentGameState)
+      case JCell | LCell | SCell | TCell | ZCell => new standardBlock(currentGameState, tetrominoShape)
+    }
+    tetromino
+  }
+
   def createBlock(): Unit = {
     val randomShapeIndex = randomGen.randomInt(blockTypes.length)
     val randomShape = blockTypes(randomShapeIndex)
-    val tetromino = randomShape match {
-      case ICell => new ICellBlock(currentGameState)
-      case OCell => new OCellBlock(currentGameState)
-      case JCell | LCell | SCell | TCell | ZCell => new standardBlock(currentGameState, randomShape)
-    }
+    val tetromino = createTetromino(randomShape)
 
-    val relativePositions = tetromino.initialPositions()
-    val absolutePositions = relativeToAbsolutePositions(relativePositions)
+    val relativePositions = tetromino.initialPositions() // Use the relativePositions to account for change around the anchor
+    val absolutePositions = relativeToAbsolutePositions(relativePositions) // Transform to absolutePositions for functionality
 
     val isOccupied = absolutePositions.exists(position => // Check if any of the spawning positions are occupied
       currentGameState.tetrisBlocks.exists {
@@ -64,7 +69,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     )
 
     if (isOccupied) {
-      currentGameState = currentGameState.copy(gameIsOver = true) // If any position is occupied, set gameIsOver to true
+      currentGameState = currentGameState.copy(gameIsOver = true) // If any spawning position is occupied, set gameIsOver to true
     } else {
       currentGameState = currentGameState.copy(
         currentBlock = tetromino,
@@ -87,12 +92,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
   }
 
   private def rotate(direction: String): Unit = {
-    val currentTetromino = currentGameState.currentBlockType match {
-      case OCell => new OCellBlock(currentGameState)
-      case ICell => new ICellBlock(currentGameState)
-      case _ => new standardBlock(currentGameState, currentGameState.currentBlockType)
-    }
-
+    val currentTetromino = createTetromino(currentGameState.currentBlockType)
     val relativeRotatedTetromino = if (direction == "Left") currentTetromino.rotateLeft() else currentTetromino.rotateRight()
     val rotatedTetromino = relativeToAbsolutePositions(relativeRotatedTetromino)
 
@@ -111,6 +111,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
     val (deltaX, deltaY) = direction match {
       case "Left" => (-1, 0)
       case "Right" => (1, 0)
+      case "Down" => (0, 1)
     }
 
     val newAbsoluteBlockShape = currentGameState.absoluteBlockShape.map(point =>
@@ -136,10 +137,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
 
   def moveDown(): Unit = {
     if (canMoveDown()) {
-      currentGameState = currentGameState.copy(
-        absoluteBlockShape = currentGameState.absoluteBlockShape.map(point => point.copy(y = point.y + 1)),
-        anchorPosition = Point(currentGameState.anchorPosition.x, currentGameState.anchorPosition.y + 1)
-      )
+      move("Down")
     } else {
       val newTetrisBlock = (currentGameState.currentBlockType, currentGameState.absoluteBlockShape)
       val newTetrisBlocks = newTetrisBlock :: currentGameState.tetrisBlocks
@@ -212,6 +210,7 @@ class TetrisLogic(val randomGen: RandomGenerator, val gridDims: Dimensions, val 
       currentGameState = currentGameState.copy(tetrisBlocks = newTetrisBlocks)
     }
   }
+
 
   def getCellType(p: Point): CellType = {
 
