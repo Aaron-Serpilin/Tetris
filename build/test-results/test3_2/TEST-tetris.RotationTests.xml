@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tetris.RotationTests" tests="7" skipped="0" failures="0" errors="0" timestamp="2023-10-03T15:31:01" hostname="Jays-MacBook-Pro-2.local" time="0.045">
+<testsuite name="tetris.RotationTests" tests="7" skipped="0" failures="0" errors="0" timestamp="2023-10-04T10:13:41" hostname="Jays-MacBook-Pro-2.local" time="0.051">
   <properties/>
-  <testcase name="testIRotations" classname="tetris.RotationTests" time="0.007"/>
-  <testcase name="testJRotations" classname="tetris.RotationTests" time="0.009"/>
+  <testcase name="testIRotations" classname="tetris.RotationTests" time="0.011"/>
+  <testcase name="testJRotations" classname="tetris.RotationTests" time="0.008"/>
   <testcase name="testLRotations" classname="tetris.RotationTests" time="0.008"/>
   <testcase name="testORotations" classname="tetris.RotationTests" time="0.005"/>
   <testcase name="testSRotations" classname="tetris.RotationTests" time="0.006"/>
-  <testcase name="testTRotations" classname="tetris.RotationTests" time="0.004"/>
-  <testcase name="testZRotations" classname="tetris.RotationTests" time="0.003"/>
-  <system-out><![CDATA[The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-]]></system-out>
+  <testcase name="testTRotations" classname="tetris.RotationTests" time="0.008"/>
+  <testcase name="testZRotations" classname="tetris.RotationTests" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

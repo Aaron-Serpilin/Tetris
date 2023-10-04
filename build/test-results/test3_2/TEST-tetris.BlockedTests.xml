@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tetris.BlockedTests" tests="11" skipped="0" failures="0" errors="0" timestamp="2023-10-03T15:31:02" hostname="Jays-MacBook-Pro-2.local" time="0.086">
+<testsuite name="tetris.BlockedTests" tests="11" skipped="0" failures="0" errors="0" timestamp="2023-10-04T10:13:41" hostname="Jays-MacBook-Pro-2.local" time="0.076">
   <properties/>
-  <testcase name="testMoveOutLeft" classname="tetris.BlockedTests" time="0.013"/>
-  <testcase name="testMoveOutRight" classname="tetris.BlockedTests" time="0.009"/>
-  <testcase name="testBlockedByBlocksLeft" classname="tetris.BlockedTests" time="0.006"/>
-  <testcase name="testBlockedByBlocksRight" classname="tetris.BlockedTests" time="0.006"/>
-  <testcase name="testBlockedByBlocksRotateLeft" classname="tetris.BlockedTests" time="0.004"/>
+  <testcase name="testMoveOutLeft" classname="tetris.BlockedTests" time="0.011"/>
+  <testcase name="testMoveOutRight" classname="tetris.BlockedTests" time="0.007"/>
+  <testcase name="testBlockedByBlocksLeft" classname="tetris.BlockedTests" time="0.004"/>
+  <testcase name="testBlockedByBlocksRight" classname="tetris.BlockedTests" time="0.01"/>
+  <testcase name="testBlockedByBlocksRotateLeft" classname="tetris.BlockedTests" time="0.003"/>
   <testcase name="testBlockedByBlocksRotateRight" classname="tetris.BlockedTests" time="0.003"/>
-  <testcase name="testRotateLeftOutRight" classname="tetris.BlockedTests" time="0.007"/>
-  <testcase name="testRotateRightOutRight" classname="tetris.BlockedTests" time="0.002"/>
-  <testcase name="testRotateLeftOutLeft" classname="tetris.BlockedTests" time="0.006"/>
-  <testcase name="testRotateRightOutLeft" classname="tetris.BlockedTests" time="0.017"/>
-  <testcase name="testRotateOutBottom" classname="tetris.BlockedTests" time="0.005"/>
-  <system-out><![CDATA[The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-]]></system-out>
+  <testcase name="testRotateLeftOutRight" classname="tetris.BlockedTests" time="0.003"/>
+  <testcase name="testRotateRightOutRight" classname="tetris.BlockedTests" time="0.006"/>
+  <testcase name="testRotateLeftOutLeft" classname="tetris.BlockedTests" time="0.002"/>
+  <testcase name="testRotateRightOutLeft" classname="tetris.BlockedTests" time="0.01"/>
+  <testcase name="testRotateOutBottom" classname="tetris.BlockedTests" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

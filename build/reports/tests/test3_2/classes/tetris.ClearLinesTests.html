@@ -29,7 +29,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">5</div>
+<div class="counter">2</div>
 <p>failures</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.063s</div>
+<div class="counter">0.066s</div>
 <p>duration</p>
 </div>
 </td>
@@ -51,7 +51,7 @@
 </td>
 <td>
 <div class="infoBox failures" id="successRate">
-<div class="percent">0%</div>
+<div class="percent">60%</div>
 <p>successful</p>
 </div>
 </td>
@@ -66,368 +66,9 @@
 <li>
 <a href="#tab1">Tests</a>
 </li>
-<li>
-<a href="#tab2">Standard output</a>
-</li>
 </ul>
 <div id="tab0" class="tab">
 <h2>Failed tests</h2>
-<div class="test">
-<a name="testClear1Line"></a>
-<h3 class="failures">testClear1Line</h3>
-<span class="code">
-<pre>org.scalatest.exceptions.TestFailedException: didPass was false
-Hint: When a new tetromino is placed, any full lines are removed from the board. If a lines is
-removed, the lines above it are moved down to such that the line is replaced by the line above it.
-Empty lines are added to the top to ensure the game has the correct height.
---------------------------------------------------------------------------------
-This is what went wrong:
-
-step=0, rand=4, actions=&lt;&gt;
-Want | Got ✓
-------------
-.SS  | .SS  
-SS.  | SS.  
-...  | ...  
-...  | ...  
-ZZ.  | ZZ.  
-
-step=1, rand=4, actions=&lt;RotateRight&gt;
-Want | Got ✓
-------------
-.S.  | .S.  
-.SS  | .SS  
-..S  | ..S  
-...  | ...  
-ZZ.  | ZZ.  
-
-step=2, rand=4, actions=&lt;Down&gt;
-Want | Got ✓
-------------
-...  | ...  
-.S.  | .S.  
-.SS  | .SS  
-..S  | ..S  
-ZZ.  | ZZ.  
-
-step=3, rand=4, actions=&lt;Down&gt;
-Want | Got ✓
-------------
-...  | ...  
-...  | ...  
-.S.  | .S.  
-.SS  | .SS  
-ZZS  | ZZS  
-
-step=4, rand=4, actions=&lt;Down&gt;
-Want | Got ✗
-------------
-.SS  | .SS  
-SS.  | SS.  
-...  | .S.  
-.S.  | .SS  
-.SS  | ZZS  
-
-
-	at app//org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:530)
-	at app//org.scalatest.Assertions.newAssertionFailedException$(Assertions.scala:529)
-	at app//org.scalatest.FunSuite.newAssertionFailedException(FunSuite.scala:1560)
-	at app//org.scalatest.Assertions$AssertionsHelper.macroAssert(Assertions.scala:503)
-	at app//generic.GameTestSuite.checkGame(GameTestSuite.scala:298)
-	at app//tetris.TetrisTestSuiteBase.checkGame(TetrisTestSuiteBase.scala:106)
-	at app//tetris.ClearLinesTests.$anonfun$new$1(ClearLinesTests.scala:42)
-	at app//scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-	at app//infrastructure.TestBase.$anonfun$test$1(TestBase.scala:36)
-	at app//org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)
-	at app//org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)
-	at app//org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)
-	at app//org.scalatest.Transformer.apply(Transformer.scala:22)
-	at app//org.scalatest.Transformer.apply(Transformer.scala:20)
-	at app//org.scalatest.FunSuiteLike$$anon$1.apply(FunSuiteLike.scala:186)
-	at app//org.scalatest.TestSuite.withFixture(TestSuite.scala:196)
-	at app//org.scalatest.TestSuite.withFixture$(TestSuite.scala:195)
-	at app//infrastructure.TestBase.org$scalatest$concurrent$TimeLimitedTests$$super$withFixture(TestBase.scala:9)
-	at app//org.scalatest.concurrent.TimeLimitedTests.$anonfun$withFixture$3(TimeLimitedTests.scala:154)
-	at app//org.scalatest.enablers.Timed$$anon$1.timeoutAfter(Timed.scala:127)
-	at app//org.scalatest.concurrent.TimeLimits.failAfterImpl(TimeLimits.scala:239)
-	at app//org.scalatest.concurrent.TimeLimits.failAfterImpl$(TimeLimits.scala:233)
-	at app//org.scalatest.concurrent.TimeLimits$.failAfterImpl(TimeLimits.scala:305)
-	at app//org.scalatest.concurrent.TimeLimitedTests.withFixture(TimeLimitedTests.scala:153)
-	at app//org.scalatest.concurrent.TimeLimitedTests.withFixture$(TimeLimitedTests.scala:150)
-	at app//infrastructure.TestBase.withFixture(TestBase.scala:9)
-	at app//org.scalatest.FunSuiteLike.invokeWithFixture$1(FunSuiteLike.scala:184)
-	at app//org.scalatest.FunSuiteLike.$anonfun$runTest$1(FunSuiteLike.scala:196)
-	at app//org.scalatest.SuperEngine.runTestImpl(Engine.scala:286)
-	at app//org.scalatest.FunSuiteLike.runTest(FunSuiteLike.scala:196)
-	at app//org.scalatest.FunSuiteLike.runTest$(FunSuiteLike.scala:178)
-	at app//org.scalatest.FunSuite.runTest(FunSuite.scala:1560)
-	at app//org.scalatest.FunSuiteLike.$anonfun$runTests$1(FunSuiteLike.scala:229)
-	at app//org.scalatest.SuperEngine.$anonfun$runTestsInBranch$1(Engine.scala:393)
-	at app//scala.collection.immutable.List.foreach(List.scala:333)
-	at app//org.scalatest.SuperEngine.traverseSubNodes$1(Engine.scala:381)
-	at app//org.scalatest.SuperEngine.runTestsInBranch(Engine.scala:376)
-	at app//org.scalatest.SuperEngine.runTestsImpl(Engine.scala:458)
-	at app//org.scalatest.FunSuiteLike.runTests(FunSuiteLike.scala:229)
-	at app//org.scalatest.FunSuiteLike.runTests$(FunSuiteLike.scala:228)
-	at app//org.scalatest.FunSuite.runTests(FunSuite.scala:1560)
-	at app//org.scalatest.Suite.run(Suite.scala:1124)
-	at app//org.scalatest.Suite.run$(Suite.scala:1106)
-	at app//org.scalatest.FunSuite.org$scalatest$FunSuiteLike$$super$run(FunSuite.scala:1560)
-	at app//org.scalatest.FunSuiteLike.$anonfun$run$1(FunSuiteLike.scala:233)
-	at app//org.scalatest.SuperEngine.runImpl(Engine.scala:518)
-	at app//org.scalatest.FunSuiteLike.run(FunSuiteLike.scala:233)
-	at app//org.scalatest.FunSuiteLike.run$(FunSuiteLike.scala:232)
-	at app//infrastructure.TestBase.run(TestBase.scala:26)
-	at app//org.scalatest.Suite.callExecuteOnSuite$1(Suite.scala:1187)
-	at app//org.scalatest.Suite.$anonfun$runNestedSuites$1(Suite.scala:1234)
-	at app//scala.collection.ArrayOps$.foreach$extension(ArrayOps.scala:1323)
-	at app//org.scalatest.Suite.runNestedSuites(Suite.scala:1232)
-	at app//org.scalatest.Suite.runNestedSuites$(Suite.scala:1166)
-	at app//org.scalatest.Suites.runNestedSuites(Suites.scala:56)
-	at app//org.scalatest.Suite.run(Suite.scala:1121)
-	at app//org.scalatest.Suite.run$(Suite.scala:1106)
-	at app//tetris.TetrisTestSuitesBase.runDirect(TetrisTestSuitesBase.scala:20)
-	at app//tetris.TetrisTestSuitesBase.runWithScoreCounter(TetrisTestSuitesBase.scala:14)
-	at app//tetris.TetrisTestSuite3_2.run(TetrisTestSuite3_2.scala:25)
-	at app//org.scalatestplus.junit.JUnitRunner.run(JUnitRunner.scala:99)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
-	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
-	at java.base@18.0.2.1/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
-	at java.base@18.0.2.1/java.lang.reflect.Method.invoke(Method.java:577)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
-	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
-	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
-	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
-	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
-	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-</pre>
-</span>
-</div>
-<div class="test">
-<a name="testClear1LineMiddle"></a>
-<h3 class="failures">testClear1LineMiddle</h3>
-<span class="code">
-<pre>org.scalatest.exceptions.TestFailedException: didPass was false
-Hint: When a new tetromino is placed, any full lines are removed from the board. If a lines is
-removed, the lines above it are moved down to such that the line is replaced by the line above it.
-Empty lines are added to the top to ensure the game has the correct height.
---------------------------------------------------------------------------------
-This is what went wrong:
-
-step=0, rand=0, actions=&lt;&gt;
-Want | Got ✓
-------------
-.... | .... 
-IIII | IIII 
-.... | .... 
-.... | .... 
-.Z.. | .Z.. 
-.Z.. | .Z.. 
-ZZZ. | ZZZ. 
-ZZ.. | ZZ.. 
-Z.Z. | Z.Z. 
-
-step=1, rand=0, actions=&lt;RotateRight&gt;
-Want | Got ✓
-------------
-..I. | ..I. 
-..I. | ..I. 
-..I. | ..I. 
-..I. | ..I. 
-.Z.. | .Z.. 
-.Z.. | .Z.. 
-ZZZ. | ZZZ. 
-ZZ.. | ZZ.. 
-Z.Z. | Z.Z. 
-
-step=2, rand=0, actions=&lt;Right&gt;
-Want | Got ✓
-------------
-...I | ...I 
-...I | ...I 
-...I | ...I 
-...I | ...I 
-.Z.. | .Z.. 
-.Z.. | .Z.. 
-ZZZ. | ZZZ. 
-ZZ.. | ZZ.. 
-Z.Z. | Z.Z. 
-
-step=3, rand=0, actions=&lt;Down&gt;
-Want | Got ✓
-------------
-.... | .... 
-...I | ...I 
-...I | ...I 
-...I | ...I 
-.Z.I | .Z.I 
-.Z.. | .Z.. 
-ZZZ. | ZZZ. 
-ZZ.. | ZZ.. 
-Z.Z. | Z.Z. 
-
-step=4, rand=0, actions=&lt;Down&gt;
-Want | Got ✓
-------------
-.... | .... 
-.... | .... 
-...I | ...I 
-...I | ...I 
-.Z.I | .Z.I 
-.Z.I | .Z.I 
-ZZZ. | ZZZ. 
-ZZ.. | ZZ.. 
-Z.Z. | Z.Z. 
-
-step=5, rand=0, actions=&lt;Down&gt;
-Want | Got ✓
-------------
-.... | .... 
-.... | .... 
-.... | .... 
-...I | ...I 
-.Z.I | .Z.I 
-.Z.I | .Z.I 
-ZZZI | ZZZI 
-ZZ.. | ZZ.. 
-Z.Z. | Z.Z. 
-
-step=6, rand=0, actions=&lt;Down&gt;
-Want | Got ✓
-------------
-.... | .... 
-.... | .... 
-.... | .... 
-.... | .... 
-.Z.I | .Z.I 
-.Z.I | .Z.I 
-ZZZI | ZZZI 
-ZZ.I | ZZ.I 
-Z.Z. | Z.Z. 
-
-step=7, rand=0, actions=&lt;Down&gt;
-Want | Got ✓
-------------
-.... | .... 
-.... | .... 
-.... | .... 
-.... | .... 
-.Z.. | .Z.. 
-.Z.I | .Z.I 
-ZZZI | ZZZI 
-ZZ.I | ZZ.I 
-Z.ZI | Z.ZI 
-
-step=8, rand=0, actions=&lt;Down&gt;
-Want | Got ✗
-------------
-.... | .... 
-IIII | IIII 
-.... | .... 
-.... | .... 
-.... | .Z.. 
-.Z.. | .Z.I 
-.Z.I | ZZZI 
-ZZ.I | ZZ.I 
-Z.ZI | Z.ZI 
-
-
-	at app//org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:530)
-	at app//org.scalatest.Assertions.newAssertionFailedException$(Assertions.scala:529)
-	at app//org.scalatest.FunSuite.newAssertionFailedException(FunSuite.scala:1560)
-	at app//org.scalatest.Assertions$AssertionsHelper.macroAssert(Assertions.scala:503)
-	at app//generic.GameTestSuite.checkGame(GameTestSuite.scala:298)
-	at app//tetris.TetrisTestSuiteBase.checkGame(TetrisTestSuiteBase.scala:106)
-	at app//tetris.ClearLinesTests.$anonfun$new$2(ClearLinesTests.scala:147)
-	at app//scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-	at app//infrastructure.TestBase.$anonfun$test$1(TestBase.scala:36)
-	at app//org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)
-	at app//org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)
-	at app//org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)
-	at app//org.scalatest.Transformer.apply(Transformer.scala:22)
-	at app//org.scalatest.Transformer.apply(Transformer.scala:20)
-	at app//org.scalatest.FunSuiteLike$$anon$1.apply(FunSuiteLike.scala:186)
-	at app//org.scalatest.TestSuite.withFixture(TestSuite.scala:196)
-	at app//org.scalatest.TestSuite.withFixture$(TestSuite.scala:195)
-	at app//infrastructure.TestBase.org$scalatest$concurrent$TimeLimitedTests$$super$withFixture(TestBase.scala:9)
-	at app//org.scalatest.concurrent.TimeLimitedTests.$anonfun$withFixture$3(TimeLimitedTests.scala:154)
-	at app//org.scalatest.enablers.Timed$$anon$1.timeoutAfter(Timed.scala:127)
-	at app//org.scalatest.concurrent.TimeLimits.failAfterImpl(TimeLimits.scala:239)
-	at app//org.scalatest.concurrent.TimeLimits.failAfterImpl$(TimeLimits.scala:233)
-	at app//org.scalatest.concurrent.TimeLimits$.failAfterImpl(TimeLimits.scala:305)
-	at app//org.scalatest.concurrent.TimeLimitedTests.withFixture(TimeLimitedTests.scala:153)
-	at app//org.scalatest.concurrent.TimeLimitedTests.withFixture$(TimeLimitedTests.scala:150)
-	at app//infrastructure.TestBase.withFixture(TestBase.scala:9)
-	at app//org.scalatest.FunSuiteLike.invokeWithFixture$1(FunSuiteLike.scala:184)
-	at app//org.scalatest.FunSuiteLike.$anonfun$runTest$1(FunSuiteLike.scala:196)
-	at app//org.scalatest.SuperEngine.runTestImpl(Engine.scala:286)
-	at app//org.scalatest.FunSuiteLike.runTest(FunSuiteLike.scala:196)
-	at app//org.scalatest.FunSuiteLike.runTest$(FunSuiteLike.scala:178)
-	at app//org.scalatest.FunSuite.runTest(FunSuite.scala:1560)
-	at app//org.scalatest.FunSuiteLike.$anonfun$runTests$1(FunSuiteLike.scala:229)
-	at app//org.scalatest.SuperEngine.$anonfun$runTestsInBranch$1(Engine.scala:393)
-	at app//scala.collection.immutable.List.foreach(List.scala:333)
-	at app//org.scalatest.SuperEngine.traverseSubNodes$1(Engine.scala:381)
-	at app//org.scalatest.SuperEngine.runTestsInBranch(Engine.scala:376)
-	at app//org.scalatest.SuperEngine.runTestsImpl(Engine.scala:458)
-	at app//org.scalatest.FunSuiteLike.runTests(FunSuiteLike.scala:229)
-	at app//org.scalatest.FunSuiteLike.runTests$(FunSuiteLike.scala:228)
-	at app//org.scalatest.FunSuite.runTests(FunSuite.scala:1560)
-	at app//org.scalatest.Suite.run(Suite.scala:1124)
-	at app//org.scalatest.Suite.run$(Suite.scala:1106)
-	at app//org.scalatest.FunSuite.org$scalatest$FunSuiteLike$$super$run(FunSuite.scala:1560)
-	at app//org.scalatest.FunSuiteLike.$anonfun$run$1(FunSuiteLike.scala:233)
-	at app//org.scalatest.SuperEngine.runImpl(Engine.scala:518)
-	at app//org.scalatest.FunSuiteLike.run(FunSuiteLike.scala:233)
-	at app//org.scalatest.FunSuiteLike.run$(FunSuiteLike.scala:232)
-	at app//infrastructure.TestBase.run(TestBase.scala:26)
-	at app//org.scalatest.Suite.callExecuteOnSuite$1(Suite.scala:1187)
-	at app//org.scalatest.Suite.$anonfun$runNestedSuites$1(Suite.scala:1234)
-	at app//scala.collection.ArrayOps$.foreach$extension(ArrayOps.scala:1323)
-	at app//org.scalatest.Suite.runNestedSuites(Suite.scala:1232)
-	at app//org.scalatest.Suite.runNestedSuites$(Suite.scala:1166)
-	at app//org.scalatest.Suites.runNestedSuites(Suites.scala:56)
-	at app//org.scalatest.Suite.run(Suite.scala:1121)
-	at app//org.scalatest.Suite.run$(Suite.scala:1106)
-	at app//tetris.TetrisTestSuitesBase.runDirect(TetrisTestSuitesBase.scala:20)
-	at app//tetris.TetrisTestSuitesBase.runWithScoreCounter(TetrisTestSuitesBase.scala:14)
-	at app//tetris.TetrisTestSuite3_2.run(TetrisTestSuite3_2.scala:25)
-	at app//org.scalatestplus.junit.JUnitRunner.run(JUnitRunner.scala:99)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
-	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
-	at java.base@18.0.2.1/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
-	at java.base@18.0.2.1/java.lang.reflect.Method.invoke(Method.java:577)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
-	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
-	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
-	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
-	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
-	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-</pre>
-</span>
-</div>
 <div class="test">
 <a name="testClear2Lines"></a>
 <h3 class="failures">testClear2Lines</h3>
@@ -530,9 +171,9 @@ Want | Got ✗
 IIII | IIII 
 .... | .... 
 .... | .... 
-.... | ZZZI 
+.... | .... 
 .... | .Z.I 
-.Z.I | ZZZI 
+.Z.I | .... 
 Z.ZI | Z.ZI 
 
 
@@ -723,10 +364,10 @@ Want | Got ✗
 IIII | IIII 
 .... | .... 
 .... | .... 
-.... | ZZZI 
+.... | .... 
 .... | .Z.I 
-.... | ZZZI 
-.Z.I | ZZZI 
+.... | .... 
+.Z.I | .... 
 
 
 	at app//org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:530)
@@ -736,207 +377,6 @@ IIII | IIII
 	at app//generic.GameTestSuite.checkGame(GameTestSuite.scala:298)
 	at app//tetris.TetrisTestSuiteBase.checkGame(TetrisTestSuiteBase.scala:106)
 	at app//tetris.ClearLinesTests.$anonfun$new$4(ClearLinesTests.scala:319)
-	at app//scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-	at app//infrastructure.TestBase.$anonfun$test$1(TestBase.scala:36)
-	at app//org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)
-	at app//org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)
-	at app//org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)
-	at app//org.scalatest.Transformer.apply(Transformer.scala:22)
-	at app//org.scalatest.Transformer.apply(Transformer.scala:20)
-	at app//org.scalatest.FunSuiteLike$$anon$1.apply(FunSuiteLike.scala:186)
-	at app//org.scalatest.TestSuite.withFixture(TestSuite.scala:196)
-	at app//org.scalatest.TestSuite.withFixture$(TestSuite.scala:195)
-	at app//infrastructure.TestBase.org$scalatest$concurrent$TimeLimitedTests$$super$withFixture(TestBase.scala:9)
-	at app//org.scalatest.concurrent.TimeLimitedTests.$anonfun$withFixture$3(TimeLimitedTests.scala:154)
-	at app//org.scalatest.enablers.Timed$$anon$1.timeoutAfter(Timed.scala:127)
-	at app//org.scalatest.concurrent.TimeLimits.failAfterImpl(TimeLimits.scala:239)
-	at app//org.scalatest.concurrent.TimeLimits.failAfterImpl$(TimeLimits.scala:233)
-	at app//org.scalatest.concurrent.TimeLimits$.failAfterImpl(TimeLimits.scala:305)
-	at app//org.scalatest.concurrent.TimeLimitedTests.withFixture(TimeLimitedTests.scala:153)
-	at app//org.scalatest.concurrent.TimeLimitedTests.withFixture$(TimeLimitedTests.scala:150)
-	at app//infrastructure.TestBase.withFixture(TestBase.scala:9)
-	at app//org.scalatest.FunSuiteLike.invokeWithFixture$1(FunSuiteLike.scala:184)
-	at app//org.scalatest.FunSuiteLike.$anonfun$runTest$1(FunSuiteLike.scala:196)
-	at app//org.scalatest.SuperEngine.runTestImpl(Engine.scala:286)
-	at app//org.scalatest.FunSuiteLike.runTest(FunSuiteLike.scala:196)
-	at app//org.scalatest.FunSuiteLike.runTest$(FunSuiteLike.scala:178)
-	at app//org.scalatest.FunSuite.runTest(FunSuite.scala:1560)
-	at app//org.scalatest.FunSuiteLike.$anonfun$runTests$1(FunSuiteLike.scala:229)
-	at app//org.scalatest.SuperEngine.$anonfun$runTestsInBranch$1(Engine.scala:393)
-	at app//scala.collection.immutable.List.foreach(List.scala:333)
-	at app//org.scalatest.SuperEngine.traverseSubNodes$1(Engine.scala:381)
-	at app//org.scalatest.SuperEngine.runTestsInBranch(Engine.scala:376)
-	at app//org.scalatest.SuperEngine.runTestsImpl(Engine.scala:458)
-	at app//org.scalatest.FunSuiteLike.runTests(FunSuiteLike.scala:229)
-	at app//org.scalatest.FunSuiteLike.runTests$(FunSuiteLike.scala:228)
-	at app//org.scalatest.FunSuite.runTests(FunSuite.scala:1560)
-	at app//org.scalatest.Suite.run(Suite.scala:1124)
-	at app//org.scalatest.Suite.run$(Suite.scala:1106)
-	at app//org.scalatest.FunSuite.org$scalatest$FunSuiteLike$$super$run(FunSuite.scala:1560)
-	at app//org.scalatest.FunSuiteLike.$anonfun$run$1(FunSuiteLike.scala:233)
-	at app//org.scalatest.SuperEngine.runImpl(Engine.scala:518)
-	at app//org.scalatest.FunSuiteLike.run(FunSuiteLike.scala:233)
-	at app//org.scalatest.FunSuiteLike.run$(FunSuiteLike.scala:232)
-	at app//infrastructure.TestBase.run(TestBase.scala:26)
-	at app//org.scalatest.Suite.callExecuteOnSuite$1(Suite.scala:1187)
-	at app//org.scalatest.Suite.$anonfun$runNestedSuites$1(Suite.scala:1234)
-	at app//scala.collection.ArrayOps$.foreach$extension(ArrayOps.scala:1323)
-	at app//org.scalatest.Suite.runNestedSuites(Suite.scala:1232)
-	at app//org.scalatest.Suite.runNestedSuites$(Suite.scala:1166)
-	at app//org.scalatest.Suites.runNestedSuites(Suites.scala:56)
-	at app//org.scalatest.Suite.run(Suite.scala:1121)
-	at app//org.scalatest.Suite.run$(Suite.scala:1106)
-	at app//tetris.TetrisTestSuitesBase.runDirect(TetrisTestSuitesBase.scala:20)
-	at app//tetris.TetrisTestSuitesBase.runWithScoreCounter(TetrisTestSuitesBase.scala:14)
-	at app//tetris.TetrisTestSuite3_2.run(TetrisTestSuite3_2.scala:25)
-	at app//org.scalatestplus.junit.JUnitRunner.run(JUnitRunner.scala:99)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
-	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
-	at java.base@18.0.2.1/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
-	at java.base@18.0.2.1/java.lang.reflect.Method.invoke(Method.java:577)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
-	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
-	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
-	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
-	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
-	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-</pre>
-</span>
-</div>
-<div class="test">
-<a name="testClear4Lines"></a>
-<h3 class="failures">testClear4Lines</h3>
-<span class="code">
-<pre>org.scalatest.exceptions.TestFailedException: didPass was false
-Hint: When a new tetromino is placed, any full lines are removed from the board. If a lines is
-removed, the lines above it are moved down to such that the line is replaced by the line above it.
-Empty lines are added to the top to ensure the game has the correct height.
---------------------------------------------------------------------------------
-This is what went wrong:
-
-step=0, rand=0, actions=&lt;&gt;
-Want | Got ✓
-------------
-.... | .... 
-IIII | IIII 
-.... | .... 
-...O | ...O 
-Z.ZZ | Z.ZZ 
-Z.ZZ | Z.ZZ 
-Z.ZZ | Z.ZZ 
-Z.ZZ | Z.ZZ 
-.ZZZ | .ZZZ 
-
-step=1, rand=0, actions=&lt;RotateRight&gt;
-Want | Got ✓
-------------
-..I. | ..I. 
-..I. | ..I. 
-..I. | ..I. 
-..IO | ..IO 
-Z.ZZ | Z.ZZ 
-Z.ZZ | Z.ZZ 
-Z.ZZ | Z.ZZ 
-Z.ZZ | Z.ZZ 
-.ZZZ | .ZZZ 
-
-step=2, rand=0, actions=&lt;Left&gt;
-Want | Got ✓
-------------
-.I.. | .I.. 
-.I.. | .I.. 
-.I.. | .I.. 
-.I.O | .I.O 
-Z.ZZ | Z.ZZ 
-Z.ZZ | Z.ZZ 
-Z.ZZ | Z.ZZ 
-Z.ZZ | Z.ZZ 
-.ZZZ | .ZZZ 
-
-step=3, rand=0, actions=&lt;Down&gt;
-Want | Got ✓
-------------
-.... | .... 
-.I.. | .I.. 
-.I.. | .I.. 
-.I.O | .I.O 
-ZIZZ | ZIZZ 
-Z.ZZ | Z.ZZ 
-Z.ZZ | Z.ZZ 
-Z.ZZ | Z.ZZ 
-.ZZZ | .ZZZ 
-
-step=4, rand=0, actions=&lt;Down&gt;
-Want | Got ✓
-------------
-.... | .... 
-.... | .... 
-.I.. | .I.. 
-.I.O | .I.O 
-ZIZZ | ZIZZ 
-ZIZZ | ZIZZ 
-Z.ZZ | Z.ZZ 
-Z.ZZ | Z.ZZ 
-.ZZZ | .ZZZ 
-
-step=5, rand=0, actions=&lt;Down&gt;
-Want | Got ✓
-------------
-.... | .... 
-.... | .... 
-.... | .... 
-.I.O | .I.O 
-ZIZZ | ZIZZ 
-ZIZZ | ZIZZ 
-ZIZZ | ZIZZ 
-Z.ZZ | Z.ZZ 
-.ZZZ | .ZZZ 
-
-step=6, rand=0, actions=&lt;Down&gt;
-Want | Got ✓
-------------
-.... | .... 
-.... | .... 
-.... | .... 
-...O | ...O 
-ZIZZ | ZIZZ 
-ZIZZ | ZIZZ 
-ZIZZ | ZIZZ 
-ZIZZ | ZIZZ 
-.ZZZ | .ZZZ 
-
-step=7, rand=0, actions=&lt;Down&gt;
-Want | Got ✗
-------------
-.... | .... 
-IIII | IIII 
-.... | .... 
-.... | ...O 
-.... | ZIZZ 
-.... | ZIZZ 
-.... | ZIZZ 
-...O | ZIZZ 
-.ZZZ | .ZZZ 
-
-
-	at app//org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:530)
-	at app//org.scalatest.Assertions.newAssertionFailedException$(Assertions.scala:529)
-	at app//org.scalatest.FunSuite.newAssertionFailedException(FunSuite.scala:1560)
-	at app//org.scalatest.Assertions$AssertionsHelper.macroAssert(Assertions.scala:503)
-	at app//generic.GameTestSuite.checkGame(GameTestSuite.scala:298)
-	at app//tetris.TetrisTestSuiteBase.checkGame(TetrisTestSuiteBase.scala:106)
-	at app//tetris.ClearLinesTests.$anonfun$new$5(ClearLinesTests.scala:415)
 	at app//scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
 	at app//infrastructure.TestBase.$anonfun$test$1(TestBase.scala:36)
 	at app//org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)
@@ -1027,47 +467,31 @@ IIII | IIII
 </tr>
 </thead>
 <tr>
-<td class="failures">testClear1Line</td>
-<td class="failures">0.010s</td>
-<td class="failures">failed</td>
+<td class="success">testClear1Line</td>
+<td class="success">0.011s</td>
+<td class="success">passed</td>
 </tr>
 <tr>
-<td class="failures">testClear1LineMiddle</td>
-<td class="failures">0.023s</td>
-<td class="failures">failed</td>
+<td class="success">testClear1LineMiddle</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
 </tr>
 <tr>
 <td class="failures">testClear2Lines</td>
-<td class="failures">0.009s</td>
+<td class="failures">0.008s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
 <td class="failures">testClear3Lines</td>
-<td class="failures">0.011s</td>
+<td class="failures">0.019s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
-<td class="failures">testClear4Lines</td>
-<td class="failures">0.010s</td>
-<td class="failures">failed</td>
+<td class="success">testClear4Lines</td>
+<td class="success">0.018s</td>
+<td class="success">passed</td>
 </tr>
 </table>
-</div>
-<div id="tab2" class="tab">
-<h2>Standard output</h2>
-<span class="code">
-<pre>The fullRowIndexes are List()
-The fullRowIndexes are List(4)
-The fullRowIndexes are List()
-The fullRowIndexes are List(6)
-The fullRowIndexes are List()
-The fullRowIndexes are List(4, 6)
-The fullRowIndexes are List()
-The fullRowIndexes are List(4, 6, 7)
-The fullRowIndexes are List()
-The fullRowIndexes are List(4, 5, 6, 7)
-</pre>
-</span>
 </div>
 </div>
 <div id="footer">
@@ -1077,7 +501,7 @@ The fullRowIndexes are List(4, 5, 6, 7)
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.5.1</a> at Oct 3, 2023, 5:31:02 PM</p>
+<a href="http://www.gradle.org">Gradle 7.5.1</a> at Oct 4, 2023, 12:13:42 PM</p>
 </div>
 </div>
 </body>

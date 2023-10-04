@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tetris.GameOverTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-10-03T15:31:02" hostname="Jays-MacBook-Pro-2.local" time="0.022">
+<testsuite name="tetris.GameOverTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-10-04T10:13:41" hostname="Jays-MacBook-Pro-2.local" time="0.015">
   <properties/>
-  <testcase name="testGameOver" classname="tetris.GameOverTests" time="0.016"/>
-  <testcase name="testNoEscapeGameOver" classname="tetris.GameOverTests" time="0.002"/>
+  <testcase name="testGameOver" classname="tetris.GameOverTests" time="0.008"/>
+  <testcase name="testNoEscapeGameOver" classname="tetris.GameOverTests" time="0.003"/>
   <testcase name="testNoEscapeGameOver2" classname="tetris.GameOverTests" time="0.002"/>
   <testcase name="testNoGameOverTightFit" classname="tetris.GameOverTests" time="0.001"/>
-  <system-out><![CDATA[The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-]]></system-out>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

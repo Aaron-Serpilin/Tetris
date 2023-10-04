@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tetris.SpawnTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-03T15:31:02" hostname="Jays-MacBook-Pro-2.local" time="0.009">
+<testsuite name="tetris.SpawnTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-04T10:13:41" hostname="Jays-MacBook-Pro-2.local" time="0.017">
   <properties/>
-  <testcase name="testSpawn" classname="tetris.SpawnTests" time="0.004"/>
-  <testcase name="testSpawn2" classname="tetris.SpawnTests" time="0.005"/>
-  <system-out><![CDATA[The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-The fullRowIndexes are List()
-]]></system-out>
+  <testcase name="testSpawn" classname="tetris.SpawnTests" time="0.003"/>
+  <testcase name="testSpawn2" classname="tetris.SpawnTests" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
